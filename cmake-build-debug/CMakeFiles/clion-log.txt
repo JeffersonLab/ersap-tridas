@@ -1,0 +1,10 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=/usr/local/Cellar/gcc/10.2.0/bin/gcc-10 -G "CodeBlocks - Unix Makefiles" /Users/gurjyan/Devel/Ersap/ersap-tridas
+CMake Error at /Users/gurjyan/Prob/clara/myClara/lib/cmake/clara/clara-config.cmake:14 (find_package_handle_standard_args):
+  Unknown CMake command "find_package_handle_standard_args".
+Call Stack (most recent call first):
+  CMakeLists.txt:42 (find_package)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/Users/gurjyan/Devel/Ersap/ersap-tridas/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+See also "/Users/gurjyan/Devel/Ersap/ersap-tridas/cmake-build-debug/CMakeFiles/CMakeError.log".

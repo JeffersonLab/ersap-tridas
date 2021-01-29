@@ -1,0 +1,13 @@
+/Users/gurjyan/Devel/Ersap/ersap-tridas/build/CMakeFiles/install/local.dir
+/Users/gurjyan/Devel/Ersap/ersap-tridas/build/CMakeFiles/install/strip.dir
+/Users/gurjyan/Devel/Ersap/ersap-tridas/build/CMakeFiles/install.dir
+/Users/gurjyan/Devel/Ersap/ersap-tridas/build/CMakeFiles/list_install_components.dir
+/Users/gurjyan/Devel/Ersap/ersap-tridas/build/CMakeFiles/rebuild_cache.dir
+/Users/gurjyan/Devel/Ersap/ersap-tridas/build/CMakeFiles/edit_cache.dir
+/Users/gurjyan/Devel/Ersap/ersap-tridas/build/service/src/CMakeFiles/install/local.dir
+/Users/gurjyan/Devel/Ersap/ersap-tridas/build/service/src/CMakeFiles/install/strip.dir
+/Users/gurjyan/Devel/Ersap/ersap-tridas/build/service/src/CMakeFiles/install.dir
+/Users/gurjyan/Devel/Ersap/ersap-tridas/build/service/src/CMakeFiles/list_install_components.dir
+/Users/gurjyan/Devel/Ersap/ersap-tridas/build/service/src/CMakeFiles/rebuild_cache.dir
+/Users/gurjyan/Devel/Ersap/ersap-tridas/build/service/src/CMakeFiles/edit_cache.dir
+/Users/gurjyan/Devel/Ersap/ersap-tridas/build/service/src/CMakeFiles/tridas-service.dir
