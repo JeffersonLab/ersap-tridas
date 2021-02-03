@@ -1,0 +1,2 @@
+Here will go all supporting TriDAS classes necessary for stream processing. The local CmakeList.txt will create an .so
+artifact that will be used during the service creation.

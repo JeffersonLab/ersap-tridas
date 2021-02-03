@@ -1,0 +1,8 @@
+When the services are developed to be shared with other developers and investigation groups, it is a good idea to
+present the data types used by the services into its own package.
+
+Orchestrators can then add a dependency on the data type package to send requests to the services, without downloading
+all the services implementation dependencies.
+
+So, if TriDAS team decides to use it's own data type then here will go code for that particular data type serialization,
+with defined mime-type. The local CmakeList.txt will creat an appropriate shared lib.
