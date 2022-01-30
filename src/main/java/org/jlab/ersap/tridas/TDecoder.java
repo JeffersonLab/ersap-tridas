@@ -23,7 +23,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class TDecoder extends Thread{
 
     private AtomicBoolean running = new AtomicBoolean(true);
-
     private RingBuffer<TRingRawEvent> ringBuffer;
     private Sequence sequence;
     private SequenceBarrier barrier;
