@@ -35,6 +35,8 @@ public class TReader extends Thread {
     private ByteBuffer tTimeSliceHeaderBuffer;
     private byte[] tTimeSliceHeader = new byte[16];
 
+    private ByteBuffer dataBuffer;
+
     public TReader(String fileName, int streamId, RingBuffer<TRingRawEvent> ringBuffer) {
         this.ringBuffer = ringBuffer;
         this.streamId = streamId;
@@ -55,7 +57,7 @@ public class TReader extends Thread {
         ringBuffer.publish(sequenceNumber);
     }
 
-    private void decodeTimeSliceHeader(TRingRawEvent evt) {
+    private void decodeTimeSliceHeaderOld(TRingRawEvent evt) {
         try {
             tTimeSliceHeaderBuffer.clear();
             dataInputStream.readFully(tTimeSliceHeader);
@@ -66,7 +68,7 @@ public class TReader extends Thread {
             evt.setPayloadLength(tTimeSliceLength - 16);
             numberOfMissedFrames = tTimeSliceHeaderBuffer.getInt();
 
-            System.out.println("DDD "+tTimeSliceId +" "+ evt.getNumberOfEvents() +" "+ tTimeSliceLength);
+            System.out.println("DDD " + tTimeSliceId + " " + evt.getNumberOfEvents() + " " + tTimeSliceLength);
 
             if (evt.getPayload().length < tTimeSliceLength) {
                 byte[] payloadData = new byte[tTimeSliceLength];
@@ -80,6 +82,21 @@ public class TReader extends Thread {
         }
     }
 
+    private void decodeTimeSliceHeader(TRingRawEvent evt) {
+
+        tTimeSliceId = dataBuffer.getInt();
+        evt.setNumberOfEvents(dataBuffer.getInt());
+        tTimeSliceLength = dataBuffer.getInt();
+        evt.setPayloadLength(tTimeSliceLength - 16);
+        numberOfMissedFrames = dataBuffer.getInt();
+
+        System.out.println("DDD " + tTimeSliceId + " " + evt.getNumberOfEvents() + " " + tTimeSliceLength);
+
+        byte[] payloadData = new byte[tTimeSliceLength];
+        dataBuffer.get(payloadData);
+        evt.setPayload(payloadData);
+    }
+
     public void run() {
         try {
             // get dataInputStream from a file
@@ -88,12 +105,30 @@ public class TReader extends Thread {
                     fileName);
 
             dataInputStream = new DataInputStream(inputStream);
+            // Count the total bytes
+            // form the input stream
+            int count = inputStream.available();
+
+            // Create byte array
+            byte[] b = new byte[count];
+
+            // Read data into byte array
+            int bytes = dataInputStream.read(b);
+
+            // Print number of bytes
+            // actually read
+            System.out.println(bytes);
+
+            dataBuffer = ByteBuffer.wrap(b);
+            dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
+            dataBuffer.rewind();
+
         } catch (
                 IOException e) {
             e.printStackTrace();
         }
 
-        while (true) {
+        while (dataBuffer.position() < dataBuffer.limit()) {
             try {
                 // Get an empty item from ring
                 TRingRawEvent tRingRawEvent = get();
