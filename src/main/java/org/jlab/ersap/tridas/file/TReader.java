@@ -123,11 +123,16 @@ public class TReader extends Thread {
             dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
             dataBuffer.rewind();
             System.out.println("DDD ==============");
-            System.out.println(String.format("%x", dataBuffer.getLong()));
-            System.out.println(String.format("%x", dataBuffer.getInt()));
-            System.out.println(String.format("%x", dataBuffer.getInt()));
-            System.out.println(String.format("%x", dataBuffer.getInt()));
-            System.out.println(String.format("%x", dataBuffer.getInt()));
+            long tsId = dataBuffer.getLong();
+            System.out.println(String.format("%x", tsId) +" "+ tsId);
+            int nEvents = dataBuffer.getInt();
+            System.out.println(String.format("%x", nEvents) +" " + nEvents);
+            int tsSize = dataBuffer.getInt();
+            System.out.println(String.format("%x", tsSize) +" "+ tsSize);
+            int mFrames = dataBuffer.getInt();
+            System.out.println(String.format("%x", mFrames) + " "+ mFrames);
+            int magic = dataBuffer.getInt();
+            System.out.println(String.format("%x", magic) +" " + magic);
             System.out.println("DDD ==============");
             System.exit(-1);
 
