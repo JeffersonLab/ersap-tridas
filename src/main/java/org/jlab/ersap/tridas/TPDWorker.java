@@ -25,19 +25,23 @@ public class TPDWorker {
         tSlice.rewind();
         events.clear();
 
-        for (int i = 0; i <= nEvents; i++) {
-            int evtTag = tSlice.getInt();
-            int evtId = tSlice.getInt();
-            tSlice.mark();
-            int evtLength = tSlice.getInt();
-            if (evtTag == TEventTag) {
-                tSlice.reset();
-                final byte[] dst = new byte[evtLength - 8];
-                tSlice.get(dst);
-                events.add(dst);
-            }
-        }
-        currentIndex = events.size();
+        tSlice.getInt(); // padding
+            int magic = tSlice.getInt();
+            System.out.println("DDD "+ String.format("%x", magic) + " " + magic);
+
+//        for (int i = 0; i <= nEvents; i++) {
+//            int evtTag = tSlice.getInt();
+//            int evtId = tSlice.getInt();
+//            tSlice.mark();
+//            int evtLength = tSlice.getInt();
+//            if (evtTag == TEventTag) {
+//                tSlice.reset();
+//                final byte[] dst = new byte[evtLength - 8];
+//                tSlice.get(dst);
+//                events.add(dst);
+//            }
+//        }
+//        currentIndex = events.size();
     }
 
     public byte[] getEvent() {

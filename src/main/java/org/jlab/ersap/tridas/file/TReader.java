@@ -106,22 +106,6 @@ public class TReader extends Thread {
 
         System.out.println("DDD ==============");
 
-
-//        tTimeSliceId = dataBuffer.getInt();
-//        dataBuffer.getInt(); //padding
-//        evt.setNumberOfEvents(dataBuffer.getInt());
-//        tTimeSliceLength = dataBuffer.getInt();
-//        evt.setPayloadLength(tTimeSliceLength - 20);
-//        numberOfMissedFrames = dataBuffer.getInt();
-//
-//        System.out.println("DDD " + tTimeSliceId + " "
-//                + evt.getNumberOfEvents() + " "
-//                + evt.getPayloadLength() + " "
-//                + numberOfMissedFrames);
-//
-//        byte[] payloadData = new byte[tTimeSliceLength];
-//        dataBuffer.get(payloadData);
-//        evt.setPayload(payloadData);
     }
 
     public void run() {
