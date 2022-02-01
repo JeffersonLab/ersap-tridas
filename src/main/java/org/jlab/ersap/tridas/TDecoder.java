@@ -100,7 +100,7 @@ public class TDecoder extends Thread{
                     Runnable r = () -> {
                         try {
                             TPDWorker worker = pool.borrowObject();
-//                            worker.decode(payload, payloadLength, numOfEvents);
+                            worker.decode(payload, payloadLength, numOfEvents);
                             pool.returnObject(worker);
                         } catch (Exception e) {
                             e.printStackTrace();
