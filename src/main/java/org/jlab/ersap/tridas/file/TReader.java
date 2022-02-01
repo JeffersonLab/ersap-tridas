@@ -123,7 +123,7 @@ public class TReader extends Thread {
             dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
             dataBuffer.rewind();
             System.out.println("DDD ==============");
-            System.out.println(String.format("%x", dataBuffer.getInt()));
+            System.out.println(String.format("%x", dataBuffer.getLong()));
             System.out.println(String.format("%x", dataBuffer.getInt()));
             System.out.println(String.format("%x", dataBuffer.getInt()));
             System.out.println(String.format("%x", dataBuffer.getInt()));
