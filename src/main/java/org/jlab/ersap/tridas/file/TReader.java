@@ -135,7 +135,7 @@ public class TReader extends Thread {
             int mFrames = dataBuffer.getInt();
             System.out.println(String.format("%x", mFrames) + " " + mFrames);
 
-            byte[] payloadData = new byte[tTimeSliceLength];
+            byte[] payloadData = new byte[tTimeSliceLength -16];
             dataBuffer.get(payloadData);
 
             System.out.println("DDD ==============");
