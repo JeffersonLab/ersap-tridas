@@ -1,4 +1,4 @@
-package org.jlab.ersap.tridas;
+package org.jlab.ersap.tridas.stream;
 
 /**
  * Copyright (c) 2021, Jefferson Science Associates, all rights reserved.
@@ -12,6 +12,8 @@ package org.jlab.ersap.tridas;
  * @project ersap-tridas
  */
 import com.lmax.disruptor.RingBuffer;
+import org.jlab.ersap.tridas.TPrintStatistics;
+import org.jlab.ersap.tridas.TRingRawEvent;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -29,6 +31,7 @@ public class TReceiver extends Thread {
     private int streamId;
     private RingBuffer<TRingRawEvent> ringBuffer;
     private long sequenceNumber;
+
     private ServerSocket serverSocket;
     private int tPort;
 
@@ -107,7 +110,7 @@ public class TReceiver extends Thread {
             Socket socket = serverSocket.accept();
             System.out.println("TriDAS client connected");
             InputStream input = socket.getInputStream();
-            dataInputStream = new DataInputStream(new BufferedInputStream(input, 65536)); //CT suggestion
+            dataInputStream = new DataInputStream(new BufferedInputStream(input, 65536));
         } catch (
                 IOException e) {
             e.printStackTrace();

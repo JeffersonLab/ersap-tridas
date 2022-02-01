@@ -11,6 +11,8 @@ package org.jlab.ersap.tridas;
  * @author gurjyan on 1/29/22
  * @project ersap-tridas
  */
+import org.jlab.ersap.tridas.stream.TReceiver;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
