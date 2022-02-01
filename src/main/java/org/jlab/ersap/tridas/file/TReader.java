@@ -120,8 +120,15 @@ public class TReader extends Thread {
             System.out.println(bytes);
 
             dataBuffer = ByteBuffer.wrap(b);
-            dataBuffer.order(ByteOrder.BIG_ENDIAN);
+            dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
             dataBuffer.rewind();
+            System.out.printf("DDD ==============");
+            System.out.printf(String.format("%x", dataBuffer.getInt()));
+            System.out.printf(String.format("%x", dataBuffer.getInt()));
+            System.out.printf(String.format("%x", dataBuffer.getInt()));
+            System.out.printf(String.format("%x", dataBuffer.getInt()));
+            System.out.printf("DDD ==============");
+            System.exit(-1);
 
         } catch (
                 IOException e) {
