@@ -131,6 +131,7 @@ public class TReader extends Thread {
             System.out.println(String.format("%x", tsSize) +" "+ tsSize);
             int mFrames = dataBuffer.getInt();
             System.out.println(String.format("%x", mFrames) + " "+ mFrames);
+            dataBuffer.getInt(); // padding
             int magic = dataBuffer.getInt();
             System.out.println(String.format("%x", magic) +" " + magic);
             System.out.println("DDD ==============");
