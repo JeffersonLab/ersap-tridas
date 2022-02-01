@@ -25,11 +25,6 @@ public class TPDWorker {
         tSlice.rewind();
         events.clear();
 
-        tSlice.getInt(); // padding
-            int magic = tSlice.getInt();
-            System.out.println("DDD =="+ String.format("%x", magic) + " " + magic);
-            System.out.println("DDD =="+ String.format("%x", tSlice.getInt()) + " " + magic);
-            System.out.println("DDD =="+ String.format("%x", tSlice.getInt()) + " " + magic);
 
 //        for (int i = 0; i <= nEvents; i++) {
 //            int evtTag = tSlice.getInt();

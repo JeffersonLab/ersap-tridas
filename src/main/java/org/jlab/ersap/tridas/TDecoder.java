@@ -94,6 +94,16 @@ public class TDecoder extends Thread{
                 if (buf.getPayload().length > 0) {
                     int numOfEvents = buf.getNumberOfEvents();
                     int payloadLength = buf.getPayloadLength();
+
+                    System.out.printf(" ----- DDD --------");
+                    ByteBuffer tSlice = buf.getPayloadBuffer();
+                    tSlice.getInt(); // padding
+                    int magic = tSlice.getInt();
+                    System.out.println("DDD =="+ String.format("%x", magic) + " " + magic);
+                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()) + " " + magic);
+                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()) + " " + magic);
+                    System.out.printf(" ----- DDD --------");
+
                     ByteBuffer payload = cloneByteBuffer(buf.getPayloadBuffer());
                     put();
                     // using object pool
