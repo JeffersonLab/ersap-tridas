@@ -122,12 +122,19 @@ public class TReader extends Thread {
             dataBuffer = ByteBuffer.wrap(b);
             dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
             dataBuffer.rewind();
-//            System.out.println("DDD ==============");
-//            System.out.println(String.format("%x", dataBuffer.getLong()));
+            System.out.println("DDD ==============");
+            System.out.println("ts_Id   = " + dataBuffer.getLong());
+            System.out.println("nEvents = " + dataBuffer.getLong());
+            System.out.println("ts_size = " + dataBuffer.getLong());
+            System.out.println("missedF = " + dataBuffer.getLong());
 //            System.out.println(String.format("%x", dataBuffer.getInt()));
-//            System.out.println(String.format("%x", dataBuffer.getInt()));
-//            System.out.println(String.format("%x", dataBuffer.getInt()));
-//            System.out.println("DDD ==============");
+            System.out.println("evt_tag     = "+dataBuffer.getInt());
+            System.out.println("evt_id      = "+dataBuffer.getInt());
+            System.out.println("evt_length  = "+dataBuffer.getInt());
+            System.out.println("nHits       = "+dataBuffer.getInt());
+            System.out.println("DDD ==============");
+
+            System.exit(1);
 
         } catch (
                 IOException e) {
