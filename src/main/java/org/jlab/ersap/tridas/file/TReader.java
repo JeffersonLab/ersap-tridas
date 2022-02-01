@@ -83,21 +83,28 @@ public class TReader extends Thread {
     }
 
     private void decodeTimeSliceHeader(TRingRawEvent evt) {
-            System.out.println("DDD ==============");
-            int tsId = dataBuffer.getInt();
-            dataBuffer.getInt(); // padding
-            System.out.println(String.format("%x", tsId) + " " + tsId);
-            int nEvents = dataBuffer.getInt();
-            System.out.println(String.format("%x", nEvents) + " " + nEvents);
-            int tsSize = dataBuffer.getInt();
-            System.out.println(String.format("%x", tsSize) + " " + tsSize);
-            int mFrames = dataBuffer.getInt();
-            System.out.println(String.format("%x", mFrames) + " " + mFrames);
+        System.out.println("DDD ==============");
 
-            byte[] payloadData = new byte[tsSize - 20];
-            dataBuffer.get(payloadData);
+        tTimeSliceId = dataBuffer.getInt();
+        dataBuffer.getInt(); // padding
+        System.out.println(String.format("%x", tTimeSliceId) + " " + tTimeSliceId);
 
-            System.out.println("DDD ==============");
+        int nEvents = dataBuffer.getInt();
+        evt.setNumberOfEvents(nEvents);
+        System.out.println(String.format("%x", nEvents) + " " + nEvents);
+
+        tTimeSliceLength = dataBuffer.getInt();
+        System.out.println(String.format("%x", tTimeSliceLength) + " " + tTimeSliceLength);
+        evt.setPayloadLength(tTimeSliceLength - 20);
+
+        numberOfMissedFrames = dataBuffer.getInt();
+        System.out.println(String.format("%x", numberOfMissedFrames) + " " + numberOfMissedFrames);
+
+        byte[] payloadData = new byte[evt.getPayloadLength()];
+        dataBuffer.get(payloadData);
+        evt.setPayload(payloadData);
+
+        System.out.println("DDD ==============");
 
 
 //        tTimeSliceId = dataBuffer.getInt();
