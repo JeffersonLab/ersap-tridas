@@ -95,7 +95,7 @@ public class TDecoder extends Thread{
                     int numOfEvents = buf.getNumberOfEvents();
                     int payloadLength = buf.getPayloadLength();
 
-                    System.out.printf(" ----- DDD --------");
+                    System.out.println(" ----- DDD -------- "+numOfEvents+" "+payloadLength);
                     ByteBuffer tSlice = buf.getPayloadBuffer();
                     tSlice.getInt(); // padding
                     int magic = tSlice.getInt();
