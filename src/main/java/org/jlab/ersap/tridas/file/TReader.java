@@ -85,9 +85,10 @@ public class TReader extends Thread {
     private void decodeTimeSliceHeader(TRingRawEvent evt) {
 
         tTimeSliceId = dataBuffer.getInt();
+        dataBuffer.getInt(); //padding
         evt.setNumberOfEvents(dataBuffer.getInt());
         tTimeSliceLength = dataBuffer.getInt();
-        evt.setPayloadLength(tTimeSliceLength - 16);
+        evt.setPayloadLength(tTimeSliceLength - 20);
         numberOfMissedFrames = dataBuffer.getInt();
 
         System.out.println("DDD " + tTimeSliceId + " " + evt.getNumberOfEvents() + " " + tTimeSliceLength);
@@ -122,20 +123,21 @@ public class TReader extends Thread {
             dataBuffer = ByteBuffer.wrap(b);
             dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
             dataBuffer.rewind();
-            System.out.println("DDD ==============");
-            long tsId = dataBuffer.getLong();
-            System.out.println(String.format("%x", tsId) +" "+ tsId);
-            int nEvents = dataBuffer.getInt();
-            System.out.println(String.format("%x", nEvents) +" " + nEvents);
-            int tsSize = dataBuffer.getInt();
-            System.out.println(String.format("%x", tsSize) +" "+ tsSize);
-            int mFrames = dataBuffer.getInt();
-            System.out.println(String.format("%x", mFrames) + " "+ mFrames);
-            dataBuffer.getInt(); // padding
-            int magic = dataBuffer.getInt();
-            System.out.println(String.format("%x", magic) +" " + magic);
-            System.out.println("DDD ==============");
-            System.exit(-1);
+
+//            System.out.println("DDD ==============");
+//            long tsId = dataBuffer.getLong();
+//            System.out.println(String.format("%x", tsId) +" "+ tsId);
+//            int nEvents = dataBuffer.getInt();
+//            System.out.println(String.format("%x", nEvents) +" " + nEvents);
+//            int tsSize = dataBuffer.getInt();
+//            System.out.println(String.format("%x", tsSize) +" "+ tsSize);
+//            int mFrames = dataBuffer.getInt();
+//            System.out.println(String.format("%x", mFrames) + " "+ mFrames);
+//            dataBuffer.getInt(); // padding
+//            int magic = dataBuffer.getInt();
+//            System.out.println(String.format("%x", magic) +" " + magic);
+//            System.out.println("DDD ==============");
+//            System.exit(-1);
 
         } catch (
                 IOException e) {
