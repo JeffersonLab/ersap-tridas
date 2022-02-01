@@ -120,7 +120,7 @@ public class TReader extends Thread {
             System.out.println(bytes);
 
             dataBuffer = ByteBuffer.wrap(b);
-            dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
+            dataBuffer.order(ByteOrder.BIG_ENDIAN);
             dataBuffer.rewind();
 
         } catch (
