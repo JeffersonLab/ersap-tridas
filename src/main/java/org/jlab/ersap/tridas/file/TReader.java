@@ -127,6 +127,7 @@ public class TReader extends Thread {
             System.out.println(String.format("%x", dataBuffer.getInt()));
             System.out.println(String.format("%x", dataBuffer.getInt()));
             System.out.println(String.format("%x", dataBuffer.getInt()));
+            System.out.println(String.format("%x", dataBuffer.getInt()));
             System.out.println("DDD ==============");
             System.exit(-1);
 
