@@ -123,15 +123,15 @@ public class TReader extends Thread {
             dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
             dataBuffer.rewind();
             System.out.println("DDD ==============");
-            System.out.println("ts_Id   = " + dataBuffer.getLong());
-            System.out.println("nEvents = " + dataBuffer.getLong());
-            System.out.println("ts_size = " + dataBuffer.getLong());
-            System.out.println("missedF = " + dataBuffer.getLong());
+            System.out.println("ts_Id   = " + String.format("%x",dataBuffer.getLong()));
+            System.out.println("nEvents = " + String.format("%x",dataBuffer.getLong()));
+            System.out.println("ts_size = " + String.format("%x",dataBuffer.getLong()));
+            System.out.println("missedF = " + String.format("%x",dataBuffer.getLong()));
 //            System.out.println(String.format("%x", dataBuffer.getInt()));
-            System.out.println("evt_tag     = "+dataBuffer.getInt());
-            System.out.println("evt_id      = "+dataBuffer.getInt());
-            System.out.println("evt_length  = "+dataBuffer.getInt());
-            System.out.println("nHits       = "+dataBuffer.getInt());
+            System.out.println("evt_tag     = "+String.format("%x",dataBuffer.getInt()));
+            System.out.println("evt_id      = "+String.format("%x",dataBuffer.getInt()));
+            System.out.println("evt_length  = "+String.format("%x",dataBuffer.getInt()));
+            System.out.println("nHits       = "+String.format("%x",dataBuffer.getInt()));
             System.out.println("DDD ==============");
 
             System.exit(1);
