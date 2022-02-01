@@ -66,12 +66,7 @@ public class TReader extends Thread {
             evt.setPayloadLength(tTimeSliceLength - 16);
             numberOfMissedFrames = tTimeSliceHeaderBuffer.getInt();
 
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("DDD "+evt.getNumberOfEvents() +" "+ evt.getPayloadLength());
+            System.out.println("DDD "+tTimeSliceId +" "+ evt.getNumberOfEvents() +" "+ tTimeSliceLength);
 
             if (evt.getPayload().length < tTimeSliceLength) {
                 byte[] payloadData = new byte[tTimeSliceLength];
@@ -105,6 +100,13 @@ public class TReader extends Thread {
                 decodeTimeSliceHeader(tRingRawEvent);
                 // Make the buffer available for consumers
                 publish();
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
