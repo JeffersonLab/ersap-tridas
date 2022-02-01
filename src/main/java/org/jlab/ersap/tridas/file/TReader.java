@@ -67,10 +67,11 @@ public class TReader extends Thread {
             numberOfMissedFrames = tTimeSliceHeaderBuffer.getInt();
 
             try {
-                Thread.sleep(5000);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            System.out.println("DDD "+evt.getNumberOfEvents() +" "+ evt.getPayloadLength());
 
             if (evt.getPayload().length < tTimeSliceLength) {
                 byte[] payloadData = new byte[tTimeSliceLength];
