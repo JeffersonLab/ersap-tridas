@@ -150,7 +150,7 @@ public class TReader extends Thread {
             System.out.println(String.format("%x", magic) + " " + magic);
 
 //            byte[] payloadData = new byte[tsSize - 20];
-            byte[] payloadData = new byte[tsSize+1];
+            byte[] payloadData = new byte[tsSize+4];
             dataBuffer.get(payloadData);
 
             System.out.println("DDD ==============");
