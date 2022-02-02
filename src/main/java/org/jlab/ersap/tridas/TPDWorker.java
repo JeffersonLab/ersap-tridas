@@ -39,7 +39,9 @@ public class TPDWorker {
     public void decode(ByteBuffer tSlice, int tsLength, int nEvents) {
 
         events.clear();
+        System.out.println("========= DDD============");
 
+        System.out.println("Number of events = "+nEvents);
         for (int i = 0; i <= nEvents; i++) {
 
             tSlice.getInt(); // pading
@@ -56,6 +58,7 @@ public class TPDWorker {
             }
         }
         currentIndex = events.size();
+        System.out.println("========= DDD============\n");
     }
 
     public byte[] getEvent() {
