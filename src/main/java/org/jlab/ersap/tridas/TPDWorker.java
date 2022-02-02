@@ -42,13 +42,9 @@ public class TPDWorker {
         events.clear();
         System.out.println("========= DDD============");
         System.out.println("Number of events = " + nEvents);
-//        int magic = 0;
-//        do {
-//            magic = tSlice.getInt();
-//        } while (magic != TEventTag);
 
         for (int i = 0; i <= nEvents; i++) {
-            tSlice.getInt(); // pading
+            tSlice.getInt(); // padding
             int magic = tSlice.getInt();
             System.out.println("DDD ==" + String.format("magic = %x", magic) + " " + magic);
             int evtId = tSlice.getInt();
@@ -63,6 +59,7 @@ public class TPDWorker {
         }
         currentIndex = events.size();
             System.out.println("========= DDD============\n");
+            System.exit(1);
         }
 
         public byte[] getEvent () {

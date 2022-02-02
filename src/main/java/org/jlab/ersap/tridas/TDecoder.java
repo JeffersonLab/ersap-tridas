@@ -103,7 +103,7 @@ public class TDecoder extends Thread{
 
 //                    System.out.println(" ----- DDD -------- "+numOfEvents+" "+payloadLength +"---------");
 //                    ByteBuffer payload = cloneByteBuffer(tSlice);
-//                    payload.getInt(); // pading
+//                    payload.getInt(); // padding
 //                    int magic = payload.getInt();
 //                    System.out.println("DDD =="+ String.format("magic = %x", magic) + " " + magic);
 //                    int evtId = payload.getInt();
