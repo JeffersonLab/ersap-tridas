@@ -99,12 +99,16 @@ public class TDecoder extends Thread{
                     byte[] ba = buf.getPayload();
                     ByteBuffer tSlice = ByteBuffer.wrap(ba);
                     System.out.println(" ----- "+ tSlice.limit()+" "+ tSlice.position());
-                    tSlice.flip(); // padding
-                    System.out.println(" ----- "+ tSlice.limit()+" "+ tSlice.position());
+//                    tSlice.getInt(); // padding
 //                    int magic = tSlice.getInt();
 //                    System.out.println("DDD =="+ String.format("%x", magic) + " " + magic);
-//                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()) + " " + magic);
-//                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()) + " " + magic);
+                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
+                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
+                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
+                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
+                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
+                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
+                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
                     System.out.printf(" ----- DDD --------");
 
                     ByteBuffer payload = cloneByteBuffer(buf.getPayloadBuffer());
