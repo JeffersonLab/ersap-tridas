@@ -96,37 +96,25 @@ public class TDecoder extends Thread{
                     int numOfEvents = buf.getNumberOfEvents();
                     int payloadLength = buf.getPayloadLength();
 
-                    System.out.println(" ----- DDD -------- "+numOfEvents+" "+payloadLength);
                     byte[] ba = buf.getPayload();
                     ByteBuffer tSlice = ByteBuffer.wrap(ba);
                     tSlice.order(ByteOrder.LITTLE_ENDIAN);
                     tSlice.rewind();
 
-                                        int id = tSlice.getInt();
-//                    tSlice.getInt(); // padding
-//                    System.out.println(String.format("%x", id) + " " + id);
-//
-//                    int nEvents = tSlice.getInt();
-//                    System.out.println(String.format("%x", nEvents) + " " + nEvents);
-//
-//                    int tsLenght = tSlice.getInt();
-//                    System.out.println(String.format("%x", tsLenght) + " " + tsLenght);
-//
-//                    int misedFrames = tSlice.getInt();
-//                    System.out.println(String.format("%x", misedFrames) + " " + misedFrames);
-                    ///////
-                    int magic = tSlice.getInt();
+                    System.out.println(" ----- DDD -------- "+numOfEvents+" "+payloadLength +"---------");
+                    ByteBuffer payload = cloneByteBuffer(tSlice);
+                    payload.getInt(); // pading
+                    int magic = payload.getInt();
                     System.out.println("DDD =="+ String.format("magic = %x", magic) + " " + magic);
-//                    System.out.println("DDD == "+ tSlice.getInt());
-                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
-                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
-                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
-//                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
-//                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
-//                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
-                    System.out.println(" ----- DDD --------");
+                    int evtId = payload.getInt();
+                    System.out.println("DDD =="+ String.format("evtId = %x", evtId) + " " + evtId);
+                    int evtLength = payload.getInt();
+                    System.out.println("DDD =="+ String.format("evtLength = %x", evtLength) + " " + evtLength);
+                    int nHits = payload.getInt();
+                    System.out.println("DDD =="+ String.format("nHits = %x", nHits) + " " + nHits);
+                    System.out.println(" ----- DDD ---------------------");
 
-//                    ByteBuffer payload = cloneByteBuffer(buf.getPayloadBuffer());
+//                    ByteBuffer payload = cloneByteBuffer(tSlice);
                     put();
                     // using object pool
 //                    Runnable r = () -> {
