@@ -59,7 +59,6 @@ public class TPDWorker {
         }
         currentIndex = events.size();
             System.out.println("========= DDD============\n");
-            System.exit(1);
         }
 
         public byte[] getEvent () {

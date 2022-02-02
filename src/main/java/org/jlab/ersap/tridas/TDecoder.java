@@ -127,6 +127,8 @@ public class TDecoder extends Thread{
                         }
                     };
                     threadPool.execute(r);
+                    System.exit(1);
+
                 } else {
                     put();
                 }
