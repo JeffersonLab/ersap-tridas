@@ -101,18 +101,18 @@ public class TDecoder extends Thread{
                     tSlice.order(ByteOrder.LITTLE_ENDIAN);
                     tSlice.rewind();
 
-                    System.out.println(" ----- DDD -------- "+numOfEvents+" "+payloadLength +"---------");
-                    ByteBuffer payload = cloneByteBuffer(tSlice);
-                    payload.getInt(); // pading
-                    int magic = payload.getInt();
-                    System.out.println("DDD =="+ String.format("magic = %x", magic) + " " + magic);
-                    int evtId = payload.getInt();
-                    System.out.println("DDD =="+ String.format("evtId = %x", evtId) + " " + evtId);
-                    int evtLength = payload.getInt();
-                    System.out.println("DDD =="+ String.format("evtLength = %x", evtLength) + " " + evtLength);
-                    int nHits = payload.getInt();
-                    System.out.println("DDD =="+ String.format("nHits = %x", nHits) + " " + nHits);
-                    System.out.println(" ----- DDD ---------------------");
+//                    System.out.println(" ----- DDD -------- "+numOfEvents+" "+payloadLength +"---------");
+//                    ByteBuffer payload = cloneByteBuffer(tSlice);
+//                    payload.getInt(); // pading
+//                    int magic = payload.getInt();
+//                    System.out.println("DDD =="+ String.format("magic = %x", magic) + " " + magic);
+//                    int evtId = payload.getInt();
+//                    System.out.println("DDD =="+ String.format("evtId = %x", evtId) + " " + evtId);
+//                    int evtLength = payload.getInt();
+//                    System.out.println("DDD =="+ String.format("evtLength = %x", evtLength) + " " + evtLength);
+//                    int nHits = payload.getInt();
+//                    System.out.println("DDD =="+ String.format("nHits = %x", nHits) + " " + nHits);
+//                    System.out.println(" ----- DDD ---------------------");
 
 //                    ByteBuffer payload = cloneByteBuffer(tSlice);
                     put();

@@ -83,28 +83,28 @@ public class TReader extends Thread {
     }
 
     private void decodeTimeSliceHeader(TRingRawEvent evt) {
-        System.out.println("DDD ==============");
+//        System.out.println("DDD ==============");
 
         tTimeSliceId = dataBuffer.getInt();
         dataBuffer.getInt(); // padding
-        System.out.println(String.format("%x", tTimeSliceId) + " " + tTimeSliceId);
+//        System.out.println(String.format("%x", tTimeSliceId) + " " + tTimeSliceId);
 
         int nEvents = dataBuffer.getInt();
         evt.setNumberOfEvents(nEvents);
-        System.out.println(String.format("%x", nEvents) + " " + nEvents);
+//        System.out.println(String.format("%x", nEvents) + " " + nEvents);
 
         tTimeSliceLength = dataBuffer.getInt();
-        System.out.println(String.format("%x", tTimeSliceLength) + " " + tTimeSliceLength);
+//        System.out.println(String.format("%x", tTimeSliceLength) + " " + tTimeSliceLength);
         evt.setPayloadLength(tTimeSliceLength - 20);
 
         numberOfMissedFrames = dataBuffer.getInt();
-        System.out.println(String.format("%x", numberOfMissedFrames) + " " + numberOfMissedFrames);
+//        System.out.println(String.format("%x", numberOfMissedFrames) + " " + numberOfMissedFrames);
 
         byte[] payloadData = new byte[evt.getPayloadLength()];
         dataBuffer.get(payloadData);
         evt.setPayload(payloadData);
 
-        System.out.println("DDD ==============");
+//        System.out.println("DDD ==============");
 
     }
 
@@ -133,51 +133,6 @@ public class TReader extends Thread {
             dataBuffer = ByteBuffer.wrap(b);
             dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
             dataBuffer.rewind();
-
-
-//            System.out.println("DDD ==============");
-//            int tsId = dataBuffer.getInt();
-//            dataBuffer.getInt(); // padding
-//            System.out.println(String.format("%x", tsId) + " " + tsId);
-//            int nEvents = dataBuffer.getInt();
-//            System.out.println(String.format("%x", nEvents) + " " + nEvents);
-//            int tsSize = dataBuffer.getInt();
-//            System.out.println(String.format("%x", tsSize) + " " + tsSize);
-//            int mFrames = dataBuffer.getInt();
-//            System.out.println(String.format("%x", mFrames) + " " + mFrames);
-//
-//            dataBuffer.getInt(); // padding
-//            int magic = dataBuffer.getInt();
-//            System.out.println(String.format("%x", magic) + " " + magic);
-//
-////            byte[] payloadData = new byte[tsSize - 20];
-//            byte[] payloadData = new byte[tsSize];
-//            dataBuffer.get(payloadData);
-//
-//            System.out.println("DDD ==============");
-//            System.out.println("DDD ==============");
-//            byte[] payloadData = new byte[28];
-//            dataBuffer.get(payloadData);
-//            ByteBuffer b2 = ByteBuffer.wrap(payloadData);
-//            b2.order(ByteOrder.LITTLE_ENDIAN);
-//            dataBuffer.rewind();
-//
-//            int tsId = b2.getInt();
-//            b2.getInt(); // padding
-//            System.out.println(String.format("tsID = %x", tsId) + " " + tsId);
-//            int nEvents = b2.getInt();
-//            System.out.println(String.format("nEvents = %x", nEvents) + " " + nEvents);
-//            int tsSize = b2.getInt();
-//            System.out.println(String.format("tsSize = %x", tsSize) + " " + tsSize);
-//            int mFrames = b2.getInt();
-//            System.out.println(String.format("mFrame %x", mFrames) + " " + mFrames);
-//
-//            b2.getInt(); // padding
-//            int magic = b2.getInt();
-//            System.out.println(String.format("%x", magic) + " " + magic);
-//
-//            System.out.println("DDD ==============");
-//            System.exit(-1);
 
         } catch (
                 IOException e) {
