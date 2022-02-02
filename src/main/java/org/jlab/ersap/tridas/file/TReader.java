@@ -161,16 +161,18 @@ public class TReader extends Thread {
             byte[] payloadData = new byte[28];
             dataBuffer.get(payloadData);
             ByteBuffer b2 = ByteBuffer.wrap(payloadData);
+            b2.order(ByteOrder.LITTLE_ENDIAN);
+            dataBuffer.rewind();
 
             int tsId = b2.getInt();
             b2.getInt(); // padding
-            System.out.println(String.format("%x", tsId) + " " + tsId);
+            System.out.println(String.format("tsID = %x", tsId) + " " + tsId);
             int nEvents = b2.getInt();
-            System.out.println(String.format("%x", nEvents) + " " + nEvents);
+            System.out.println(String.format("nEvents = %x", nEvents) + " " + nEvents);
             int tsSize = b2.getInt();
-            System.out.println(String.format("%x", tsSize) + " " + tsSize);
+            System.out.println(String.format("tsSize = %x", tsSize) + " " + tsSize);
             int mFrames = b2.getInt();
-            System.out.println(String.format("%x", mFrames) + " " + mFrames);
+            System.out.println(String.format("mFrame %x", mFrames) + " " + mFrames);
 
             b2.getInt(); // padding
             int magic = b2.getInt();
