@@ -15,6 +15,7 @@ import com.lmax.disruptor.*;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -95,12 +96,14 @@ public class TDecoder extends Thread{
                     int numOfEvents = buf.getNumberOfEvents();
                     int payloadLength = buf.getPayloadLength();
 
-//                    System.out.println(" ----- DDD -------- "+numOfEvents+" "+payloadLength);
-//                    byte[] ba = buf.getPayload();
-//                    ByteBuffer tSlice = ByteBuffer.wrap(ba);
-//                    //////////
-//                    int id = tSlice.getInt();
-//                    tSlice.getInt(); // padding
+                    System.out.println(" ----- DDD -------- "+numOfEvents+" "+payloadLength);
+                    byte[] ba = buf.getPayload();
+                    ByteBuffer tSlice = ByteBuffer.wrap(ba);
+                    tSlice.order(ByteOrder.LITTLE_ENDIAN);
+                    tSlice.rewind();
+
+                                        int id = tSlice.getInt();
+                    tSlice.getInt(); // padding
 //                    System.out.println(String.format("%x", id) + " " + id);
 //
 //                    int nEvents = tSlice.getInt();
@@ -111,9 +114,9 @@ public class TDecoder extends Thread{
 //
 //                    int misedFrames = tSlice.getInt();
 //                    System.out.println(String.format("%x", misedFrames) + " " + misedFrames);
-//                    ///////
-//                    int magic = tSlice.getInt();
-//                    System.out.println("DDD =="+ String.format("%x", magic) + " " + magic);
+                    ///////
+                    int magic = tSlice.getInt();
+                    System.out.println("DDD =="+ String.format("magic = %x", magic) + " " + magic);
 //                    System.out.println("DDD == "+ tSlice.getInt());
 //                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
 //                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
@@ -123,19 +126,19 @@ public class TDecoder extends Thread{
 //                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
                     System.out.println(" ----- DDD --------");
 
-                    ByteBuffer payload = cloneByteBuffer(buf.getPayloadBuffer());
+//                    ByteBuffer payload = cloneByteBuffer(buf.getPayloadBuffer());
                     put();
                     // using object pool
-                    Runnable r = () -> {
-                        try {
-                            TPDWorker worker = pool.borrowObject();
-                            worker.decode(payload, payloadLength, numOfEvents);
-                            pool.returnObject(worker);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    };
-                    threadPool.execute(r);
+//                    Runnable r = () -> {
+//                        try {
+//                            TPDWorker worker = pool.borrowObject();
+//                            worker.decode(payload, payloadLength, numOfEvents);
+//                            pool.returnObject(worker);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    };
+//                    threadPool.execute(r);
                 } else {
                     put();
                 }

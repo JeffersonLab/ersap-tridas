@@ -155,31 +155,29 @@ public class TReader extends Thread {
 //            dataBuffer.get(payloadData);
 //
 //            System.out.println("DDD ==============");
-
-
-            System.out.println("DDD ==============");
-            byte[] payloadData = new byte[28];
-            dataBuffer.get(payloadData);
-            ByteBuffer b2 = ByteBuffer.wrap(payloadData);
-            b2.order(ByteOrder.LITTLE_ENDIAN);
-            dataBuffer.rewind();
-
-            int tsId = b2.getInt();
-            b2.getInt(); // padding
-            System.out.println(String.format("tsID = %x", tsId) + " " + tsId);
-            int nEvents = b2.getInt();
-            System.out.println(String.format("nEvents = %x", nEvents) + " " + nEvents);
-            int tsSize = b2.getInt();
-            System.out.println(String.format("tsSize = %x", tsSize) + " " + tsSize);
-            int mFrames = b2.getInt();
-            System.out.println(String.format("mFrame %x", mFrames) + " " + mFrames);
-
-            b2.getInt(); // padding
-            int magic = b2.getInt();
-            System.out.println(String.format("%x", magic) + " " + magic);
-
-            System.out.println("DDD ==============");
-            System.exit(-1);
+//            System.out.println("DDD ==============");
+//            byte[] payloadData = new byte[28];
+//            dataBuffer.get(payloadData);
+//            ByteBuffer b2 = ByteBuffer.wrap(payloadData);
+//            b2.order(ByteOrder.LITTLE_ENDIAN);
+//            dataBuffer.rewind();
+//
+//            int tsId = b2.getInt();
+//            b2.getInt(); // padding
+//            System.out.println(String.format("tsID = %x", tsId) + " " + tsId);
+//            int nEvents = b2.getInt();
+//            System.out.println(String.format("nEvents = %x", nEvents) + " " + nEvents);
+//            int tsSize = b2.getInt();
+//            System.out.println(String.format("tsSize = %x", tsSize) + " " + tsSize);
+//            int mFrames = b2.getInt();
+//            System.out.println(String.format("mFrame %x", mFrames) + " " + mFrames);
+//
+//            b2.getInt(); // padding
+//            int magic = b2.getInt();
+//            System.out.println(String.format("%x", magic) + " " + magic);
+//
+//            System.out.println("DDD ==============");
+//            System.exit(-1);
 
         } catch (
                 IOException e) {
@@ -190,7 +188,7 @@ public class TReader extends Thread {
             try {
                 // Get an empty item from ring
                 TRingRawEvent tRingRawEvent = get();
-//                decodeTimeSliceHeader(tRingRawEvent);
+                decodeTimeSliceHeader(tRingRawEvent);
                 // Make the buffer available for consumers
                 publish();
 
