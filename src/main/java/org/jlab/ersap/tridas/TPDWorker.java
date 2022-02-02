@@ -43,7 +43,7 @@ public class TPDWorker {
         System.out.println("========= DDD============");
         System.out.println("Number of events = " + nEvents);
 
-        for (int i = 0; i <= nEvents; i++) {
+        for (int i = 0; i < nEvents; i++) {
             tSlice.getInt(); // padding
             int magic = tSlice.getInt();
             System.out.println("DDD ==" + String.format("magic = %x", magic) + " " + magic);
