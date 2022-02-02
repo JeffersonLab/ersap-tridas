@@ -99,7 +99,7 @@ public class TDecoder extends Thread{
                     byte[] ba = buf.getPayload();
                     ByteBuffer tSlice = ByteBuffer.wrap(ba);
                     System.out.println(" ----- "+ tSlice.limit()+" "+ tSlice.position());
-                    tSlice.getInt(); // padding
+                    tSlice.flip(); // padding
                     System.out.println(" ----- "+ tSlice.limit()+" "+ tSlice.position());
 //                    int magic = tSlice.getInt();
 //                    System.out.println("DDD =="+ String.format("%x", magic) + " " + magic);
