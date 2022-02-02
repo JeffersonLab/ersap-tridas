@@ -98,9 +98,9 @@ public class TDecoder extends Thread{
                     System.out.println(" ----- DDD -------- "+numOfEvents+" "+payloadLength);
                     byte[] ba = buf.getPayload();
                     ByteBuffer tSlice = ByteBuffer.wrap(ba);
-                    tSlice.rewind();
+                    tSlice.flip();
                     System.out.println(" ----- "+ tSlice.limit()+" "+ tSlice.position());
-//                    tSlice.getInt(); // padding
+                    tSlice.getInt(); // padding
                     int magic = tSlice.getInt();
                     System.out.println("DDD =="+ String.format("%x", magic) + " " + magic);
                     System.out.println("DDD =="+ String.format("%x", tSlice.getInt()) + " " + magic);
