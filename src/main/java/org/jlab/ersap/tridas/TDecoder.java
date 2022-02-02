@@ -95,7 +95,7 @@ public class TDecoder extends Thread{
                     int numOfEvents = buf.getNumberOfEvents();
                     int payloadLength = buf.getPayloadLength();
 
-                    System.out.println(" ----- DDD -------- "+numOfEvents+" "+payloadLength);
+//                    System.out.println(" ----- DDD -------- "+numOfEvents+" "+payloadLength);
 //                    byte[] ba = buf.getPayload();
 //                    ByteBuffer tSlice = ByteBuffer.wrap(ba);
 //                    //////////

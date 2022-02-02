@@ -149,29 +149,31 @@ public class TReader extends Thread {
             int magic = dataBuffer.getInt();
             System.out.println(String.format("%x", magic) + " " + magic);
 
-            byte[] payloadData = new byte[tsSize - 20];
+//            byte[] payloadData = new byte[tsSize - 20];
+            byte[] payloadData = new byte[tsSize];
             dataBuffer.get(payloadData);
 
             System.out.println("DDD ==============");
+             ByteBuffer b2 = ByteBuffer.wrap(payloadData);
 
-//
-//            System.out.println("DDD ==============");
-//            tsId = dataBuffer.getInt();
-//            dataBuffer.getInt(); // padding
-//            System.out.println(String.format("%x", tsId) + " " + tsId);
-//            nEvents = dataBuffer.getInt();
-//            System.out.println(String.format("%x", nEvents) + " " + nEvents);
-//            tsSize = dataBuffer.getInt();
-//            System.out.println(String.format("%x", tsSize) + " " + tsSize);
-//            mFrames = dataBuffer.getInt();
-//            System.out.println(String.format("%x", mFrames) + " " + mFrames);
-//
-//            dataBuffer.getInt(); // padding
-//            int magic = dataBuffer.getInt();
-//            System.out.println(String.format("%x", magic) + " " + magic);
-//
-//            System.out.println("DDD ==============");
-//            System.exit(-1);
+
+            System.out.println("DDD ==============");
+            tsId = b2.getInt();
+            b2.getInt(); // padding
+            System.out.println(String.format("%x", tsId) + " " + tsId);
+            nEvents = b2.getInt();
+            System.out.println(String.format("%x", nEvents) + " " + nEvents);
+            tsSize = b2.getInt();
+            System.out.println(String.format("%x", tsSize) + " " + tsSize);
+            mFrames = b2.getInt();
+            System.out.println(String.format("%x", mFrames) + " " + mFrames);
+
+            b2.getInt(); // padding
+            magic = b2.getInt();
+            System.out.println(String.format("%x", magic) + " " + magic);
+
+            System.out.println("DDD ==============");
+            System.exit(-1);
 
         } catch (
                 IOException e) {
