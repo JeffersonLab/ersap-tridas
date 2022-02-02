@@ -103,7 +103,7 @@ public class TDecoder extends Thread{
                     tSlice.rewind();
 
                                         int id = tSlice.getInt();
-                    tSlice.getInt(); // padding
+//                    tSlice.getInt(); // padding
 //                    System.out.println(String.format("%x", id) + " " + id);
 //
 //                    int nEvents = tSlice.getInt();
