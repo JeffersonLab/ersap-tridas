@@ -134,24 +134,24 @@ public class TReader extends Thread {
             dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
             dataBuffer.rewind();
 
-//            System.out.println("DDD ==============");
-//            int tsId = dataBuffer.getInt();
-//            dataBuffer.getInt(); // padding
-//            System.out.println(String.format("%x", tsId) + " " + tsId);
-//            int nEvents = dataBuffer.getInt();
-//            System.out.println(String.format("%x", nEvents) + " " + nEvents);
-//            int tsSize = dataBuffer.getInt();
-//            System.out.println(String.format("%x", tsSize) + " " + tsSize);
-//            int mFrames = dataBuffer.getInt();
-//            System.out.println(String.format("%x", mFrames) + " " + mFrames);
-//
-//            byte[] payloadData = new byte[tsSize - 20];
-//            dataBuffer.get(payloadData);
-//
-//            System.out.println("DDD ==============");
-//
-//
-//            System.out.println("DDD ==============");
+            System.out.println("DDD ==============");
+            int tsId = dataBuffer.getInt();
+            dataBuffer.getInt(); // padding
+            System.out.println(String.format("%x", tsId) + " " + tsId);
+            int nEvents = dataBuffer.getInt();
+            System.out.println(String.format("%x", nEvents) + " " + nEvents);
+            int tsSize = dataBuffer.getInt();
+            System.out.println(String.format("%x", tsSize) + " " + tsSize);
+            int mFrames = dataBuffer.getInt();
+            System.out.println(String.format("%x", mFrames) + " " + mFrames);
+
+            byte[] payloadData = new byte[tsSize - 20];
+            dataBuffer.get(payloadData);
+
+            System.out.println("DDD ==============");
+            ByteBuffer bPaylod = ByteBuffer.wrap(payloadData);
+
+            System.out.println("DDD ==============");
 //            tsId = dataBuffer.getInt();
 //            dataBuffer.getInt(); // padding
 //            System.out.println(String.format("%x", tsId) + " " + tsId);
@@ -161,13 +161,13 @@ public class TReader extends Thread {
 //            System.out.println(String.format("%x", tsSize) + " " + tsSize);
 //            mFrames = dataBuffer.getInt();
 //            System.out.println(String.format("%x", mFrames) + " " + mFrames);
-//
-//            dataBuffer.getInt(); // padding
-//            int magic = dataBuffer.getInt();
-//            System.out.println(String.format("%x", magic) + " " + magic);
-//
-//            System.out.println("DDD ==============");
-//            System.exit(-1);
+
+            dataBuffer.getInt(); // padding
+            int magic = dataBuffer.getInt();
+            System.out.println(String.format("%x", magic) + " " + magic);
+
+            System.out.println("DDD ==============");
+            System.exit(-1);
 
         } catch (
                 IOException e) {
@@ -178,7 +178,7 @@ public class TReader extends Thread {
             try {
                 // Get an empty item from ring
                 TRingRawEvent tRingRawEvent = get();
-                decodeTimeSliceHeader(tRingRawEvent);
+//                decodeTimeSliceHeader(tRingRawEvent);
                 // Make the buffer available for consumers
                 publish();
 
