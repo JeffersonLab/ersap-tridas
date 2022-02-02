@@ -145,16 +145,17 @@ public class TReader extends Thread {
             int mFrames = dataBuffer.getInt();
             System.out.println(String.format("%x", mFrames) + " " + mFrames);
 
-            byte[] payloadData = new byte[tsSize - 20];
-            dataBuffer.get(payloadData);
             dataBuffer.getInt(); // padding
             int magic = dataBuffer.getInt();
             System.out.println(String.format("%x", magic) + " " + magic);
 
-            System.out.println("DDD ==============");
-            ByteBuffer bPaylod = ByteBuffer.wrap(payloadData);
+            byte[] payloadData = new byte[tsSize - 20];
+            dataBuffer.get(payloadData);
 
             System.out.println("DDD ==============");
+
+//
+//            System.out.println("DDD ==============");
 //            tsId = dataBuffer.getInt();
 //            dataBuffer.getInt(); // padding
 //            System.out.println(String.format("%x", tsId) + " " + tsId);
@@ -164,13 +165,13 @@ public class TReader extends Thread {
 //            System.out.println(String.format("%x", tsSize) + " " + tsSize);
 //            mFrames = dataBuffer.getInt();
 //            System.out.println(String.format("%x", mFrames) + " " + mFrames);
-
-            bPaylod.getInt(); // padding
-            magic = bPaylod.getInt();
-            System.out.println(String.format("%x", magic) + " " + magic);
-
-            System.out.println("DDD ==============");
-            System.exit(-1);
+//
+//            dataBuffer.getInt(); // padding
+//            int magic = dataBuffer.getInt();
+//            System.out.println(String.format("%x", magic) + " " + magic);
+//
+//            System.out.println("DDD ==============");
+//            System.exit(-1);
 
         } catch (
                 IOException e) {
