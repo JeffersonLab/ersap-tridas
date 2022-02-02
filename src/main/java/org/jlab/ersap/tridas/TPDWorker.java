@@ -40,24 +40,23 @@ public class TPDWorker {
 
         events.clear();
         System.out.println("========= DDD============");
-
         System.out.println("Number of events = "+nEvents);
-        for (int i = 0; i <= nEvents; i++) {
-
-            tSlice.getInt(); // pading
-                    int magic = tSlice.getInt();
-                    System.out.println("DDD =="+ String.format("magic = %x", magic) + " " + magic);
-                    int evtId = tSlice.getInt();
-                    System.out.println("DDD =="+ String.format("evtId = %x", evtId) + " " + evtId);
-                    int evtLength = tSlice.getInt();
-
-            if (magic == TEventTag) {
-                final byte[] dst = new byte[evtLength - 12];
-                tSlice.get(dst);
-                events.add(dst);
-            }
-        }
-        currentIndex = events.size();
+//        for (int i = 0; i <= nEvents; i++) {
+//
+//            tSlice.getInt(); // pading
+//                    int magic = tSlice.getInt();
+//                    System.out.println("DDD =="+ String.format("magic = %x", magic) + " " + magic);
+//                    int evtId = tSlice.getInt();
+//                    System.out.println("DDD =="+ String.format("evtId = %x", evtId) + " " + evtId);
+//                    int evtLength = tSlice.getInt();
+//
+//            if (magic == TEventTag) {
+//                final byte[] dst = new byte[evtLength - 12];
+//                tSlice.get(dst);
+//                events.add(dst);
+//            }
+//        }
+//        currentIndex = events.size();
         System.out.println("========= DDD============\n");
     }
 
