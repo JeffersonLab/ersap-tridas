@@ -15,6 +15,22 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Event byte[] will have the following structure:
+ *   uint32_t number of hits
+ *   uint64_t StartTime in ns
+ *   uint32_t TSCompleted flag for event belonging to an (un)completed (0)1 TS
+ *
+ *   unsigned int nseeds[6] array that store the number of seeds per trigger type
+ *   unsigned int plugin_trigtype[8] array - seed-found flags for each kind of plugin
+ *   unsigned int plugin_nseeds[8] array - n-seeds for each kind of L2 algorithm
+ *   unsigned int Channel
+ *   unsigned int Slot
+ *   unsigned int Crate
+ *   unsigned int Charge
+ *   unsigned int T1ns 1 ns counter, 0-65536ns
+ *   unsigned long long int VTP frame counter
+ */
 public class TPDWorker {
     private final static int TEventTag = 12081972;
     private final List<byte[]> events = new ArrayList<>();
@@ -22,23 +38,24 @@ public class TPDWorker {
 
     public void decode(ByteBuffer tSlice, int tsLength, int nEvents) {
 
-        tSlice.rewind();
         events.clear();
 
+        for (int i = 0; i <= nEvents; i++) {
 
-//        for (int i = 0; i <= nEvents; i++) {
-//            int evtTag = tSlice.getInt();
-//            int evtId = tSlice.getInt();
-//            tSlice.mark();
-//            int evtLength = tSlice.getInt();
-//            if (evtTag == TEventTag) {
-//                tSlice.reset();
-//                final byte[] dst = new byte[evtLength - 8];
-//                tSlice.get(dst);
-//                events.add(dst);
-//            }
-//        }
-//        currentIndex = events.size();
+            tSlice.getInt(); // pading
+                    int magic = tSlice.getInt();
+                    System.out.println("DDD =="+ String.format("magic = %x", magic) + " " + magic);
+                    int evtId = tSlice.getInt();
+                    System.out.println("DDD =="+ String.format("evtId = %x", evtId) + " " + evtId);
+                    int evtLength = tSlice.getInt();
+
+            if (magic == TEventTag) {
+                final byte[] dst = new byte[evtLength - 12];
+                tSlice.get(dst);
+                events.add(dst);
+            }
+        }
+        currentIndex = events.size();
     }
 
     public byte[] getEvent() {

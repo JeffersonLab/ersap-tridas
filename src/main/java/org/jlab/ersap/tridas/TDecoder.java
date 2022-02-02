@@ -114,19 +114,19 @@ public class TDecoder extends Thread{
 //                    System.out.println("DDD =="+ String.format("nHits = %x", nHits) + " " + nHits);
 //                    System.out.println(" ----- DDD ---------------------");
 
-//                    ByteBuffer payload = cloneByteBuffer(tSlice);
+                    ByteBuffer payload = cloneByteBuffer(tSlice);
                     put();
                     // using object pool
-//                    Runnable r = () -> {
-//                        try {
-//                            TPDWorker worker = pool.borrowObject();
-//                            worker.decode(payload, payloadLength, numOfEvents);
-//                            pool.returnObject(worker);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    };
-//                    threadPool.execute(r);
+                    Runnable r = () -> {
+                        try {
+                            TPDWorker worker = pool.borrowObject();
+                            worker.decode(payload, payloadLength, numOfEvents);
+                            pool.returnObject(worker);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    };
+                    threadPool.execute(r);
                 } else {
                     put();
                 }
