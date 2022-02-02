@@ -118,9 +118,9 @@ public class TDecoder extends Thread{
                     int magic = tSlice.getInt();
                     System.out.println("DDD =="+ String.format("magic = %x", magic) + " " + magic);
 //                    System.out.println("DDD == "+ tSlice.getInt());
-//                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
-//                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
-//                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
+                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
+                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
+                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
 //                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
 //                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
 //                    System.out.println("DDD =="+ String.format("%x", tSlice.getInt()));
