@@ -7,7 +7,7 @@ io-services:
     class: org.jlab.ersap.tridas.engine.io.ETWriter
     name: TridasWriter
 services:
-  - class: org.jlab.epsci.ersap.ejfat.proc.EDummyEngine
+  - class: org.jlab.ersap.tridas.engine.proc.EDummyEngine
     name: DummyEngine
 configuration:
   services:
