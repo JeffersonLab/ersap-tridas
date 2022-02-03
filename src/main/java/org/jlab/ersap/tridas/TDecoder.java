@@ -136,7 +136,7 @@ public class TDecoder extends Thread{
         }
     }
 
-    public byte[] getEvent () throws Exception {
+    public ByteBuffer getEvent () throws Exception {
         if(myWorker != null && myWorker.getEvent() != null) {
             return myWorker.getEvent();
         } else {

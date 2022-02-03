@@ -17,6 +17,8 @@ import org.jlab.ersap.tridas.TRingRawEvent;
 import org.jlab.ersap.tridas.TRingRawEventFactory;
 import sun.misc.Signal;
 
+import java.nio.ByteBuffer;
+
 import static com.lmax.disruptor.RingBuffer.createSingleProducer;
 
 public class TridasReceiverDecoder {
@@ -51,7 +53,7 @@ public class TridasReceiverDecoder {
         }
     }
 
-    public byte[] getDecodedEvent() throws Exception {
+    public ByteBuffer getDecodedEvent() throws Exception {
         return decoder.getEvent();
     }
 

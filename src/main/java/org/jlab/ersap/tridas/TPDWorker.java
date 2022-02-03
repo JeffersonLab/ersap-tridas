@@ -13,11 +13,14 @@ package org.jlab.ersap.tridas;
  */
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Event byte[] will have the following structure:
+ * uint32_t magic number = 12081972
+ * uint32_t EventID
  * uint32_t number of hits
  * uint64_t StartTime in ns
  * uint32_t TSCompleted flag for event belonging to an (un)completed (0)1 TS
@@ -34,35 +37,42 @@ import java.util.List;
  */
 public class TPDWorker {
     private final static int TEventTag = 12081972;
-    private final List<byte[]> events = new ArrayList<>();
+    private final List<ByteBuffer> events = new ArrayList<>();
     private int currentIndex;
 
     public void decode(ByteBuffer tSlice, int tsLength, int nEvents) {
 
         events.clear();
-        System.out.println("========= DDD============");
-        System.out.println("Number of events = " + nEvents);
+//        System.out.println("========= DDD============");
+//        System.out.println("Number of events = " + nEvents);
 
         for (int i = 0; i < nEvents; i++) {
             tSlice.getInt(); // padding
             int magic = tSlice.getInt();
-            System.out.println("DDD ==" + String.format("magic = %x", magic) + " " + magic);
+//            System.out.println("DDD ==" + String.format("magic = %x", magic) + " " + magic);
             int evtId = tSlice.getInt();
-            System.out.println("DDD ==" + String.format("evtId = %x", evtId) + " " + evtId);
+//            System.out.println("DDD ==" + String.format("evtId = %x", evtId) + " " + evtId);
             int evtLength = tSlice.getInt();
 
             if (magic == TEventTag) {
                 final byte[] dst = new byte[evtLength - 16];
                 tSlice.get(dst);
-                events.add(dst);
+                ByteBuffer eventBuffer = ByteBuffer.wrap(new byte[evtLength]);
+                eventBuffer.order(ByteOrder.LITTLE_ENDIAN);
+                eventBuffer.putInt(magic);
+                eventBuffer.putInt(evtId);
+                eventBuffer.putInt(evtLength);
+                eventBuffer.put(dst);
+                events.add(eventBuffer);
             }
+
         }
-        currentIndex = events.size();
-            System.out.println("========= DDD============\n");
+        currentIndex = -1;
+//            System.out.println("========= DDD============\n");
         }
 
-        public byte[] getEvent () {
-            if (events.size() < currentIndex) {
+        public ByteBuffer getEvent () {
+            if (currentIndex <events.size()) {
                 currentIndex++;
                 return events.get(currentIndex);
             } else {
