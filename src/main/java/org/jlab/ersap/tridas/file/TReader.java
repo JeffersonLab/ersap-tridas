@@ -4,8 +4,6 @@ import com.lmax.disruptor.RingBuffer;
 import org.jlab.ersap.tridas.TRingRawEvent;
 
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -147,11 +145,11 @@ public class TReader extends Thread {
                 // Make the buffer available for consumers
                 publish();
 
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
 
             } catch (InterruptedException e) {
                 e.printStackTrace();

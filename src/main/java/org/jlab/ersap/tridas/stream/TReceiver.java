@@ -40,7 +40,7 @@ public class TReceiver extends Thread {
     private int tTimeSliceLength;
 
     private ByteBuffer tTimeSliceHeaderBuffer;
-    private byte[] tTimeSliceHeader = new byte[16];
+    private byte[] tTimeSliceHeader = new byte[20];
 
     private AtomicBoolean running = new AtomicBoolean(true);
 
@@ -87,17 +87,30 @@ public class TReceiver extends Thread {
             tTimeSliceHeaderBuffer.clear();
             dataInputStream.readFully(tTimeSliceHeader);
 
-            tTimeSliceId = tTimeSliceHeaderBuffer.getInt();
-            evt.setNumberOfEvents(tTimeSliceHeaderBuffer.getInt());
-            tTimeSliceLength = tTimeSliceHeaderBuffer.getInt();
-            evt.setPayloadLength(tTimeSliceLength - 16);
-            numberOfMissedFrames = tTimeSliceHeaderBuffer.getInt();
+            //        System.out.println("DDD ==============");
 
-            if (evt.getPayload().length < tTimeSliceLength) {
-                byte[] payloadData = new byte[tTimeSliceLength];
-                evt.setPayload(payloadData);
-            }
+            tTimeSliceId = tTimeSliceHeaderBuffer.getInt();
+            tTimeSliceHeaderBuffer.getInt(); // padding
+//        System.out.println(String.format("%x", tTimeSliceId) + " " + tTimeSliceId);
+
+            int nEvents = tTimeSliceHeaderBuffer.getInt();
+            evt.setNumberOfEvents(nEvents);
+//        System.out.println(String.format("%x", nEvents) + " " + nEvents);
+
+            tTimeSliceLength = tTimeSliceHeaderBuffer.getInt();
+//        System.out.println(String.format("%x", tTimeSliceLength) + " " + tTimeSliceLength);
+            evt.setPayloadLength(tTimeSliceLength - 20);
+
+            numberOfMissedFrames = tTimeSliceHeaderBuffer.getInt();
+//        System.out.println(String.format("%x", numberOfMissedFrames) + " " + numberOfMissedFrames);
+
+            byte[] payloadData = new byte[evt.getPayloadLength()];
             dataInputStream.readFully(evt.getPayload(), 0, tTimeSliceLength);
+            evt.setPayload(payloadData);
+
+//        System.out.println("DDD ==============");
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
