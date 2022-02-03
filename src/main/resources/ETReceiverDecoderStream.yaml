@@ -1,0 +1,11 @@
+---
+name: ETReceiverDecoderStream
+engine: org.jlab.ersap.tridas.engine.io.ETReceiverDecoderStream
+type: java
+
+author: Vardan Gyurjyan
+email: gurjyan@jlab.org
+
+version: 0.1
+description:
+TriDAS timeSlice (TCPU output) receiver and decoder

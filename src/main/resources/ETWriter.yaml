@@ -1,0 +1,11 @@
+---
+name: ETWriter
+engine: org.jlab.ersap.tridas.engine.io.ETWriter
+type: java
+
+author: Vardan Gyurjyan
+email: gurjyan@jlab.org
+
+version: 0.1
+description:
+  TriDAS event writer
