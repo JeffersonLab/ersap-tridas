@@ -97,7 +97,7 @@ public class TReceiverZMQ extends Thread {
             ZMQ.Context context = ZMQ.context(1);
             ZMQ.Socket socket = context.socket(PULL);
             System.out.println("INFO TriDAS receiver service is listening at = " + address);
-            socket.connect(address);
+            socket.bind(address);
             System.out.println("INFO TriDAS TCPU client connected");
             byte[] b = socket.recv();
             dataBuffer = ByteBuffer.wrap(b);
