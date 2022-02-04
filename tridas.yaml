@@ -10,13 +10,13 @@ services:
   - class: org.jlab.ersap.tridas.engine.proc.EDummyEngine
     name: DummyEngine
 configuration:
-  services:
     io-services:
       reader:
         port1: 6400
       writer:
         file-events: 100000
-    DummyEngine:
-      print-interval: 1000
+    services:
+      DummyEngine:
+        print-interval: 1000
 mime-types:
   - binary/bytes
