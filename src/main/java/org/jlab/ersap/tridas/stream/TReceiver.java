@@ -120,9 +120,9 @@ public class TReceiver extends Thread {
     public void run() {
         try {
             serverSocket = new ServerSocket(tPort);
-            System.out.println("Server is listening on port " + tPort);
+            System.out.println("INFO TriDAS receiver service is listening on port = " + tPort);
             Socket socket = serverSocket.accept();
-            System.out.println("TCPU client connected");
+            System.out.println("INFO TriDAS TCPU client connected");
             InputStream input = socket.getInputStream();
             dataInputStream = new DataInputStream(new BufferedInputStream(input, 65536));
         } catch (
