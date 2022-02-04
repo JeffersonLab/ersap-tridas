@@ -101,7 +101,7 @@ public class TReceiverZMQ extends Thread {
             System.out.println("INFO TriDAS TCPU client connected");
 
             while (true) {
-                dataBuffer.clear();
+                if(dataBuffer!=null) dataBuffer.clear();
                 byte[] b = socket.recv();
                 dataBuffer = ByteBuffer.wrap(b);
                 dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
