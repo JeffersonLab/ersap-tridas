@@ -69,14 +69,14 @@ public class TPDWorker {
         }
         currentIndex = -1;
 //            System.out.println("========= DDD============\n");
-        }
+    }
 
-        public ByteBuffer getEvent () {
-            if (currentIndex <events.size()) {
-                currentIndex++;
-                return events.get(currentIndex);
-            } else {
-                return null;
-            }
+    public ByteBuffer getEvent() {
+        if (currentIndex < events.size()) {
+            currentIndex++;
+            return events.get(currentIndex);
+        } else {
+            return null;
         }
     }
+}

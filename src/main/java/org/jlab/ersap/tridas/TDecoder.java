@@ -11,6 +11,7 @@ package org.jlab.ersap.tridas;
  * @author gurjyan on 1/29/22
  * @project ersap-tridas
  */
+
 import com.lmax.disruptor.*;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
@@ -21,7 +22,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
-public class TDecoder extends Thread{
+public class TDecoder extends Thread {
 
     private AtomicBoolean running = new AtomicBoolean(true);
     private RingBuffer<TRingRawEvent> ringBuffer;
@@ -136,8 +137,8 @@ public class TDecoder extends Thread{
         }
     }
 
-    public ByteBuffer getEvent () throws Exception {
-        if(myWorker != null && myWorker.getEvent() != null) {
+    public ByteBuffer getEvent() throws Exception {
+        if (myWorker != null && myWorker.getEvent() != null) {
             return myWorker.getEvent();
         } else {
             pool.returnObject(myWorker);
@@ -146,7 +147,7 @@ public class TDecoder extends Thread{
         }
     }
 
-    public void exit () {
+    public void exit() {
         running.set(false);
         this.interrupt();
     }

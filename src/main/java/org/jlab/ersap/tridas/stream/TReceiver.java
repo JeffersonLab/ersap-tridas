@@ -11,6 +11,7 @@ package org.jlab.ersap.tridas.stream;
  * @author gurjyan on 1/29/22
  * @project ersap-tridas
  */
+
 import com.lmax.disruptor.RingBuffer;
 import org.jlab.ersap.tridas.TPrintStatistics;
 import org.jlab.ersap.tridas.TRingRawEvent;
@@ -87,28 +88,28 @@ public class TReceiver extends Thread {
             tTimeSliceHeaderBuffer.clear();
             dataInputStream.readFully(tTimeSliceHeader);
 
-                    System.out.println("DDD ==============");
+            System.out.println("DDD ==============");
 
             tTimeSliceId = tTimeSliceHeaderBuffer.getInt();
             tTimeSliceHeaderBuffer.getInt(); // padding
-        System.out.println(String.format("%x", tTimeSliceId) + " " + tTimeSliceId);
+            System.out.println(String.format("%x", tTimeSliceId) + " " + tTimeSliceId);
 
             int nEvents = tTimeSliceHeaderBuffer.getInt();
             evt.setNumberOfEvents(nEvents);
-        System.out.println(String.format("%x", nEvents) + " " + nEvents);
+            System.out.println(String.format("%x", nEvents) + " " + nEvents);
 
             tTimeSliceLength = tTimeSliceHeaderBuffer.getInt();
-        System.out.println(String.format("%x", tTimeSliceLength) + " " + tTimeSliceLength);
+            System.out.println(String.format("%x", tTimeSliceLength) + " " + tTimeSliceLength);
             evt.setPayloadLength(tTimeSliceLength - 20);
 
             numberOfMissedFrames = tTimeSliceHeaderBuffer.getInt();
-        System.out.println(String.format("%x", numberOfMissedFrames) + " " + numberOfMissedFrames);
+            System.out.println(String.format("%x", numberOfMissedFrames) + " " + numberOfMissedFrames);
 
             byte[] payloadData = new byte[evt.getPayloadLength()];
             dataInputStream.readFully(evt.getPayload(), 0, tTimeSliceLength);
             evt.setPayload(payloadData);
 
-        System.out.println("DDD ==============");
+            System.out.println("DDD ==============");
 
 
         } catch (IOException e) {
