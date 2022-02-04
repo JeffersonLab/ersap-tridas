@@ -23,7 +23,7 @@ import static com.lmax.disruptor.RingBuffer.createSingleProducer;
 
 public class TridasReceiverDecoder {
     private int tPort1;
-    private TReceiver receiver1;
+    private TReceiverZMQ receiver1;
     private TDecoder decoder;
     private final static int maxRingItems = 32768;
     private RingBuffer<TRingRawEvent> ringBuffer1;
@@ -44,7 +44,7 @@ public class TridasReceiverDecoder {
 
     public void go() {
         if(!started) {
-            receiver1 = new TReceiver(tPort1, 1, ringBuffer1);
+            receiver1 = new TReceiverZMQ(tPort1, 1, ringBuffer1);
             decoder = new TDecoder(ringBuffer1, sequence1, sequenceBarrier1);
 
             receiver1.start();
