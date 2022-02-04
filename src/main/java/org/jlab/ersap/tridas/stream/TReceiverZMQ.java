@@ -73,18 +73,18 @@ public class TReceiverZMQ extends Thread {
 
         tTimeSliceId = dataBuffer.getInt();
         dataBuffer.getInt(); // padding
-        System.out.println(String.format("%x", tTimeSliceId) + " " + tTimeSliceId);
+        System.out.println(String.format("tsID = %x", tTimeSliceId) + " " + tTimeSliceId);
 
         int nEvents = dataBuffer.getInt();
         evt.setNumberOfEvents(nEvents);
-        System.out.println(String.format("%x", nEvents) + " " + nEvents);
+        System.out.println(String.format("nEvents = %x", nEvents) + " " + nEvents);
 
         tTimeSliceLength = dataBuffer.getInt();
-        System.out.println(String.format("%x", tTimeSliceLength) + " " + tTimeSliceLength);
+        System.out.println(String.format("tsLength = %x", tTimeSliceLength) + " " + tTimeSliceLength);
         evt.setPayloadLength(tTimeSliceLength - 20);
 
         numberOfMissedFrames = dataBuffer.getInt();
-        System.out.println(String.format("%x", numberOfMissedFrames) + " " + numberOfMissedFrames);
+        System.out.println(String.format("lostFrames = %x", numberOfMissedFrames) + " " + numberOfMissedFrames);
 
         byte[] payloadData = new byte[evt.getPayloadLength()];
         dataBuffer.get(payloadData);
