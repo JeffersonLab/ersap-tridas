@@ -24,7 +24,7 @@ import java.nio.file.Path;
 public class ETWriter extends AbstractEventWriterService<FileWriter> {
     private static final String EVENTS = "file-events";
     private int evtCount;
-    private int fileCount;
+    private int fileCount = 1;
     private int numFileEvents;
     private Path file;
 
@@ -56,7 +56,7 @@ public class ETWriter extends AbstractEventWriterService<FileWriter> {
             ByteBuffer b = (ByteBuffer) event;
             writer.write(String.valueOf(b.array()));
             if (evtCount >= numFileEvents) {
-                evtCount = 1;
+                evtCount = 0;
                 writer.close();
                 writer = new FileWriter(file.toString() + "_" + (fileCount++) + ".ers");
             }
