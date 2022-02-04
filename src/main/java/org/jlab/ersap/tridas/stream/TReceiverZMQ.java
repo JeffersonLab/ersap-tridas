@@ -91,7 +91,6 @@ public class TReceiverZMQ extends Thread {
         evt.setPayload(payloadData);
 
 //        System.out.println("DDD ==============");
-
     }
 
     public void run() {
