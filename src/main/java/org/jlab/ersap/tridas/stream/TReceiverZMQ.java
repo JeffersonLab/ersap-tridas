@@ -69,28 +69,28 @@ public class TReceiverZMQ extends Thread {
     }
 
     private void decodeTimeSliceHeader(TRingRawEvent evt) {
-//        System.out.println("DDD ==============");
+        System.out.println("DDD ==============");
 
         tTimeSliceId = dataBuffer.getInt();
         dataBuffer.getInt(); // padding
-//        System.out.println(String.format("%x", tTimeSliceId) + " " + tTimeSliceId);
+        System.out.println(String.format("%x", tTimeSliceId) + " " + tTimeSliceId);
 
         int nEvents = dataBuffer.getInt();
         evt.setNumberOfEvents(nEvents);
-//        System.out.println(String.format("%x", nEvents) + " " + nEvents);
+        System.out.println(String.format("%x", nEvents) + " " + nEvents);
 
         tTimeSliceLength = dataBuffer.getInt();
-//        System.out.println(String.format("%x", tTimeSliceLength) + " " + tTimeSliceLength);
+        System.out.println(String.format("%x", tTimeSliceLength) + " " + tTimeSliceLength);
         evt.setPayloadLength(tTimeSliceLength - 20);
 
         numberOfMissedFrames = dataBuffer.getInt();
-//        System.out.println(String.format("%x", numberOfMissedFrames) + " " + numberOfMissedFrames);
+        System.out.println(String.format("%x", numberOfMissedFrames) + " " + numberOfMissedFrames);
 
         byte[] payloadData = new byte[evt.getPayloadLength()];
         dataBuffer.get(payloadData);
         evt.setPayload(payloadData);
 
-//        System.out.println("DDD ==============");
+        System.out.println("DDD ==============");
     }
 
     public void run() {
