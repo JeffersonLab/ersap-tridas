@@ -2,6 +2,7 @@ package org.jlab.ersap.tridas.stream;
 
 import com.lmax.disruptor.RingBuffer;
 import org.jlab.ersap.tridas.TRingRawEvent;
+import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
 import java.nio.ByteBuffer;
@@ -42,7 +43,7 @@ public class TReceiverZMQ extends Thread {
     private ByteBuffer dataBuffer;
 
     public TReceiverZMQ(int port, int streamId, RingBuffer<TRingRawEvent> ringBuffer) {
-        address = "tcp://localhost:" + port;
+        address = "tcp://*:"+port;
         this.ringBuffer = ringBuffer;
         this.streamId = streamId;
 
@@ -94,25 +95,29 @@ public class TReceiverZMQ extends Thread {
     }
 
     public void run() {
-            ZMQ.Context context = ZMQ.context(1);
-            ZMQ.Socket socket = context.socket(PULL);
-            System.out.println("INFO TriDAS receiver service is listening at = " + address);
+        System.out.println("INFO TriDAS receiver service is listening at = " + address);
+        try (ZContext context = new ZContext()) {
+            ZMQ.Socket socket = context.createSocket(ZMQ.PULL);
             socket.bind(address);
             System.out.println("INFO TriDAS TCPU client connected");
-            byte[] b = socket.recv();
-            dataBuffer = ByteBuffer.wrap(b);
-            dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
-            dataBuffer.rewind();
 
-        while (dataBuffer.position() < dataBuffer.limit()) {
-            try {
-                // Get an empty item from ring
-                TRingRawEvent tRingRawEvent = get();
-                decodeTimeSliceHeader(tRingRawEvent);
-                // Make the buffer available for consumers
-                publish();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            while (true) {
+                dataBuffer.clear();
+                byte[] b = socket.recv();
+                dataBuffer = ByteBuffer.wrap(b);
+                dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
+                dataBuffer.rewind();
+                while (dataBuffer.position() < dataBuffer.limit()) {
+                    try {
+                        // Get an empty item from ring
+                        TRingRawEvent tRingRawEvent = get();
+                        decodeTimeSliceHeader(tRingRawEvent);
+                        // Make the buffer available for consumers
+                        publish();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
