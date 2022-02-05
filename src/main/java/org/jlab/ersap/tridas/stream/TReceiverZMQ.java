@@ -104,6 +104,7 @@ public class TReceiverZMQ extends Thread {
             while (true) {
                 if(dataBuffer!=null) dataBuffer.clear();
                 byte[] b = socket.recv();
+                System.out.println("DDD ZMQ received buffer size = "+b.length);
                 dataBuffer = ByteBuffer.wrap(b);
                 dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
                 dataBuffer.rewind();
