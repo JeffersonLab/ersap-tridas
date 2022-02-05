@@ -72,8 +72,9 @@ public class TReceiverZMQ extends Thread {
         System.out.println("DDD ==============");
 
         tTimeSliceId = dataBuffer.getInt();
-        dataBuffer.getInt(); // padding
         System.out.println(String.format("tsID = %x", tTimeSliceId) + " " + tTimeSliceId);
+
+        dataBuffer.getInt(); // padding
 
         int nEvents = dataBuffer.getInt();
         evt.setNumberOfEvents(nEvents);
