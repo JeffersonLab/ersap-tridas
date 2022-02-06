@@ -51,11 +51,11 @@ public class TRingRawEvent {
         this.numberOfEvents = numberOfEvents;
     }
 
-//    public ByteBuffer getPayloadBuffer() {
-//        return payloadBuffer;
-//    }
-//
-//    public void setPayloadBuffer(ByteBuffer payloadBuffer) {
-//        this.payloadBuffer = payloadBuffer;
-//    }
+    public ByteBuffer getPayloadBuffer() {
+        return payloadBuffer;
+    }
+
+    public void setPayloadBuffer(ByteBuffer payloadBuffer) {
+        this.payloadBuffer = payloadBuffer;
+    }
 }

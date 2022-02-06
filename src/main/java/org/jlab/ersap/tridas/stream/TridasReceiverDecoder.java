@@ -12,7 +12,7 @@ package org.jlab.ersap.tridas.stream;
  * @project ersap-tridas
  */
 import com.lmax.disruptor.*;
-import org.jlab.ersap.tridas.TDecoder;
+import org.jlab.ersap.tridas.TDecoderZMQ;
 import org.jlab.ersap.tridas.TRingRawEvent;
 import org.jlab.ersap.tridas.TRingRawEventFactory;
 import sun.misc.Signal;
@@ -24,7 +24,7 @@ import static com.lmax.disruptor.RingBuffer.createSingleProducer;
 public class TridasReceiverDecoder {
     private int tPort1;
     private TReceiverZMQ receiver1;
-    private TDecoder decoder;
+    private TDecoderZMQ decoder;
     private final static int maxRingItems = 32768;
     private RingBuffer<TRingRawEvent> ringBuffer1;
     private Sequence sequence1;
@@ -45,7 +45,7 @@ public class TridasReceiverDecoder {
     public void go() {
         if(!started) {
             receiver1 = new TReceiverZMQ(tPort1, 1, ringBuffer1);
-            decoder = new TDecoder(ringBuffer1, sequence1, sequenceBarrier1);
+            decoder = new TDecoderZMQ(ringBuffer1, sequence1, sequenceBarrier1);
 
             receiver1.start();
             decoder.start();

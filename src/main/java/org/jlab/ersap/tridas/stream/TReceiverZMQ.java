@@ -9,8 +9,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static org.zeromq.ZMQ.PULL;
-
+import static org.jlab.ersap.tridas.TDecoderZMQ.cloneByteBuffer;
 
 /**
  * Copyright (c) 2021, Jefferson Science Associates, all rights reserved.
@@ -102,17 +101,47 @@ public class TReceiverZMQ extends Thread {
             System.out.println("INFO TriDAS TCPU client connected");
 
             while (true) {
+
+                // -----  getting TimeSliceHeader
+                byte[] tsb = socket.recv();
                 if(dataBuffer!=null) dataBuffer.clear();
-                byte[] b = socket.recv();
-                System.out.println("DDD ZMQ received buffer size = "+b.length);
-                dataBuffer = ByteBuffer.wrap(b);
+                dataBuffer = ByteBuffer.wrap(tsb);
                 dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
                 dataBuffer.rewind();
-                while (dataBuffer.position() < dataBuffer.limit()) {
+
+                tTimeSliceId = dataBuffer.getInt();
+                System.out.println(String.format("tsID = %x", tTimeSliceId) + " " + tTimeSliceId);
+                dataBuffer.getInt(); // padding
+                int nEvents = dataBuffer.getInt();
+                System.out.println(String.format("nEvents = %x", nEvents) + " " + nEvents);
+                tTimeSliceLength = dataBuffer.getInt();
+                System.out.println(String.format("tsLength = %x", tTimeSliceLength) + " " + tTimeSliceLength);
+                numberOfMissedFrames = dataBuffer.getInt();
+                System.out.println(String.format("lostFrames = %x", numberOfMissedFrames) + " " + numberOfMissedFrames);
+
+                for (int i = 0;i < nEvents; i++ ) {
+                    // -----  getting TEHeaderInfo
+                    byte[] teb = socket.recv();
+                    dataBuffer.clear();
+                    dataBuffer = ByteBuffer.wrap(teb);
+                    dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
+                    dataBuffer.rewind();
+
+                    dataBuffer.getInt(); // padding
+                    int magic = dataBuffer.getInt();
+                    System.out.println(String.format("tsID = %x", magic) + " " + magic);
+
+                    // -----  getting DataFrames
+                    byte[] dfb = socket.recv();
+                    dataBuffer.clear();
+                    dataBuffer = ByteBuffer.wrap(dfb);
+                    dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
+                    dataBuffer.rewind();
+                    ByteBuffer payload = cloneByteBuffer(dataBuffer);
                     try {
                         // Get an empty item from ring
                         TRingRawEvent tRingRawEvent = get();
-                        decodeTimeSliceHeader(tRingRawEvent);
+                        tRingRawEvent.setPayloadBuffer(payload);
                         // Make the buffer available for consumers
                         publish();
                     } catch (InterruptedException e) {
