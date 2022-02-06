@@ -67,31 +67,6 @@ public class TReceiverZMQ extends Thread {
         ringBuffer.publish(sequenceNumber);
     }
 
-    private void decodeTimeSliceHeader(TRingRawEvent evt) {
-        System.out.println("DDD ==============");
-
-        tTimeSliceId = dataBuffer.getInt();
-        System.out.println(String.format("tsID = %x", tTimeSliceId) + " " + tTimeSliceId);
-
-        dataBuffer.getInt(); // padding
-
-        int nEvents = dataBuffer.getInt();
-        evt.setNumberOfEvents(nEvents);
-        System.out.println(String.format("nEvents = %x", nEvents) + " " + nEvents);
-
-        tTimeSliceLength = dataBuffer.getInt();
-        System.out.println(String.format("tsLength = %x", tTimeSliceLength) + " " + tTimeSliceLength);
-        evt.setPayloadLength(tTimeSliceLength - 20);
-
-        numberOfMissedFrames = dataBuffer.getInt();
-        System.out.println(String.format("lostFrames = %x", numberOfMissedFrames) + " " + numberOfMissedFrames);
-
-        byte[] payloadData = new byte[evt.getPayloadLength()];
-        dataBuffer.get(payloadData);
-        evt.setPayload(payloadData);
-
-        System.out.println("DDD ==============");
-    }
 
     public void run() {
         System.out.println("INFO TriDAS receiver service is listening at = " + address);
@@ -110,14 +85,14 @@ public class TReceiverZMQ extends Thread {
                 dataBuffer.rewind();
 
                 tTimeSliceId = dataBuffer.getInt();
-                System.out.println(String.format("tsID = %x", tTimeSliceId) + " " + tTimeSliceId);
+//                System.out.println(String.format("tsID = %x", tTimeSliceId) + " " + tTimeSliceId);
                 dataBuffer.getInt(); // padding
                 int nEvents = dataBuffer.getInt();
-                System.out.println(String.format("nEvents = %x", nEvents) + " " + nEvents);
+//                System.out.println(String.format("nEvents = %x", nEvents) + " " + nEvents);
                 tTimeSliceLength = dataBuffer.getInt();
-                System.out.println(String.format("tsLength = %x", tTimeSliceLength) + " " + tTimeSliceLength);
+//                System.out.println(String.format("tsLength = %x", tTimeSliceLength) + " " + tTimeSliceLength);
                 numberOfMissedFrames = dataBuffer.getInt();
-                System.out.println(String.format("lostFrames = %x", numberOfMissedFrames) + " " + numberOfMissedFrames);
+//                System.out.println(String.format("lostFrames = %x", numberOfMissedFrames) + " " + numberOfMissedFrames);
 
                 for (int i = 0;i < nEvents; i++ ) {
                     // -----  getting TEHeaderInfo
@@ -129,7 +104,7 @@ public class TReceiverZMQ extends Thread {
 
                     dataBuffer.getInt(); // padding
                     int magic = dataBuffer.getInt();
-                    System.out.println(String.format("tsID = %x", magic) + " " + magic);
+//                    System.out.println(String.format("tsID = %x", magic) + " " + magic);
 
                     // -----  getting DataFrames
                     byte[] dfb = socket.recv();
