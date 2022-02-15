@@ -100,8 +100,8 @@ public class DataFile2HipoBank {
             // actually read
             System.out.println(bytes);
             dfh.dataBuffer = ByteBuffer.wrap(b);
-//            dfh.dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
-            dfh.dataBuffer.rewind();
+            dfh.dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
+//            dfh.dataBuffer.rewind();
 
         } catch (IOException e) {
             e.printStackTrace();
