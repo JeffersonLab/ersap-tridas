@@ -114,6 +114,19 @@ public class DataFile2HipoBank {
             int charge = dfh.dataBuffer.getInt();
             int time = dfh.dataBuffer.getInt();
             long frame_count = dfh.dataBuffer.getLong();
+            System.out.println("DDD " +
+                    "channel = " + channel
+                    + " slot = " + slot
+                    + " crate = " + crate
+                    + " charge = " + charge
+                    + " time = " + time
+                    + " frame = " + frame_count
+            );
+            try {
+                Thread.sleep(1_000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             dfh.evtWrite(channel, slot, crate, charge, time, frame_count);
         }
