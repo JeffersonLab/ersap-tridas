@@ -102,7 +102,7 @@ public class DataFile2HipoBank {
             dfh.dataBuffer = ByteBuffer.wrap(b);
             dfh.dataBuffer.order(ByteOrder.LITTLE_ENDIAN);
             dfh.dataBuffer.flip();
-//            dfh.dataBuffer.rewind();
+            dfh.dataBuffer.rewind();
 
         } catch (IOException e) {
             e.printStackTrace();
