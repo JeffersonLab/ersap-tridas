@@ -123,12 +123,12 @@ public class DataFile2HipoBank {
             int d = dfh.dataBuffer.getInt();
             int dbi = Integer.reverseBytes(d);
 
-            int channel = bits(cbi,0,4);
-            int slot = bits(cbi,4,5);
-            int crate = bits(cbi,9,7);
-            int charge = bits(cbi,16,16);
-            int time = bits(dbi, 0,16);
-            int frame_count = bits(dbi,16,48);
+            int channel = bits(dbi,0,4);
+            int slot = bits(dbi,4,5);
+            int crate = bits(dbi,9,7);
+            int charge = bits(dbi,16,16);
+            int time = bits(cbi, 0,16);
+            int frame_count = bits(cbi,16,48);
             System.out.println("DDD " +
                     "channel = " + channel
                     + " slot = " + slot
