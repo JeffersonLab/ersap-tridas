@@ -75,6 +75,14 @@ public class DataFile2HipoBank {
         w.close();
     }
 
+    public static int bits(int n, int offset, int length) {
+        return n >> (32 - offset - length) & ~(-1 << length);
+    }
+
+    public static long bits(long n, int offset, int length) {
+        return n >> (64 - offset - length) & ~(-1L << length);
+    }
+
     public static void main(String[] args) {
         DataFile2HipoBank dfh = new DataFile2HipoBank(args[0], args[1]);
 
@@ -108,12 +116,15 @@ public class DataFile2HipoBank {
         }
 
         while (dfh.dataBuffer.position() < dfh.dataBuffer.limit()) {
-            int channel = dfh.dataBuffer.getInt();
-            int slot = dfh.dataBuffer.getInt();
-            int crate = dfh.dataBuffer.getInt();
-            int charge = dfh.dataBuffer.getInt();
-            int time = dfh.dataBuffer.getInt();
-            long frame_count = dfh.dataBuffer.getLong();
+            int c = dfh.dataBuffer.getInt();
+            long d = dfh.dataBuffer.getLong();
+
+            int channel = bits(c,0,4);
+            int slot = bits(c,4,5);
+            int crate = bits(c,5,7);
+            int charge = bits(c,7,16);
+            long time = bits(d, 0,16);
+            long frame_count = bits(d,16,48);
             System.out.println("DDD " +
                     "channel = " + channel
                     + " slot = " + slot
@@ -128,7 +139,7 @@ public class DataFile2HipoBank {
                 e.printStackTrace();
             }
 
-            dfh.evtWrite(channel, slot, crate, charge, time, frame_count);
+            dfh.evtWrite(channel, slot, crate, charge, (int)time, frame_count);
         }
         dfh.close();
     }
