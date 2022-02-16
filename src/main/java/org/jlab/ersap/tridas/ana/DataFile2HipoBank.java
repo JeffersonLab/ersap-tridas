@@ -117,7 +117,7 @@ public class DataFile2HipoBank {
 
         while (dfh.dataBuffer.position() < dfh.dataBuffer.limit()) {
             int c = dfh.dataBuffer.getInt();
-            int channel = bits(c,0,4);
+            int channel = c & 0xf;
             System.out.println(String. format("first integer = %x", c));
             System.out.println(String. format("channel = %x", channel));
 //            int cbi = Integer.reverseBytes(c);
@@ -128,34 +128,27 @@ public class DataFile2HipoBank {
 
             //            int dbi = Integer.reverseBytes(d);
 
-//            int channel = bits(c,28,4);
-//            int slot = bits(c,23,5);
-//            int crate = bits(c,16,7);
+//            int channel = bits(c,0,4);
+//            int slot = bits(c,4,5);
+//            int crate = bits(c,9,7);
 //            int charge = bits(c,16,16);
 //            int time = bits(d, 0,16);
 //            int frame_count = bits(d,16,48);
-
-//            int channel = bits(c,0,4);
-            int slot = bits(c,4,5);
-            int crate = bits(c,9,7);
-            int charge = bits(c,16,16);
-            int time = bits(d, 0,16);
-            int frame_count = bits(d,16,48);
-            System.out.println("DDD " +
-                    "channel = " + channel
-                    + " slot = " + slot
-                    + " crate = " + crate
-                    + " charge = " + charge
-                    + " time = " + time
-                    + " frame = " + frame_count
-            );
+//            System.out.println("DDD " +
+//                    "channel = " + channel
+//                    + " slot = " + slot
+//                    + " crate = " + crate
+//                    + " charge = " + charge
+//                    + " time = " + time
+//                    + " frame = " + frame_count
+//            );
             try {
                 Thread.sleep(5_000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            dfh.evtWrite(channel, slot, crate, charge, (int)time, frame_count);
+//            dfh.evtWrite(channel, slot, crate, charge, (int)time, frame_count);
         }
         dfh.close();
     }
