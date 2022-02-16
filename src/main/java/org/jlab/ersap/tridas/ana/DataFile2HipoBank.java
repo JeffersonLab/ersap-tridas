@@ -116,45 +116,43 @@ public class DataFile2HipoBank {
         }
 
         while (dfh.dataBuffer.position() < dfh.dataBuffer.limit()) {
-            int c = dfh.dataBuffer.getInt();
-            int channel = c & 0xf;
-            int slot = (c & 0x1f0) >>> 4;
-            int crate = (c & 0xFE00) >>> 9;
-            int charge = (c & 0xFFFF0000) >>> 16;
-            System.out.println(String. format("first integer = %x", c));
-            System.out.println(String. format("channel = %x", channel));
-            System.out.println(String. format("slot = %x", slot));
-            System.out.println(String. format("crate = %x", crate));
-            System.out.println(String. format("charge = %x", charge));
-//            int cbi = Integer.reverseBytes(c);
+            // channel, crate, slot, charge
+            int a1 = dfh.dataBuffer.getInt();
+            int channel = a1 & 0xf;
+            int slot = (a1 & 0x1f0) >>> 4;
+            int crate = (a1 & 0xFE00) >>> 9;
+            int charge = (a1 & 0xFFFF0000) >>> 16;
 
-//            long d = dfh.dataBuffer.getLong();
-            int d = dfh.dataBuffer.getInt();
-            System.out.println(String. format("second integer = %x", d));
+            // time
+            int time = dfh.dataBuffer.getShort();
 
-            //            int dbi = Integer.reverseBytes(d);
+            // frame counter
+            int f1 = dfh.dataBuffer.getInt();
+            int f2 = dfh.dataBuffer.getShort();
+            long frame_count = f1 | f2;
 
-//            int channel = bits(c,0,4);
-//            int slot = bits(c,4,5);
-//            int crate = bits(c,9,7);
-//            int charge = bits(c,16,16);
-//            int time = bits(d, 0,16);
-//            int frame_count = bits(d,16,48);
-//            System.out.println("DDD " +
-//                    "channel = " + channel
-//                    + " slot = " + slot
-//                    + " crate = " + crate
-//                    + " charge = " + charge
-//                    + " time = " + time
-//                    + " frame = " + frame_count
-//            );
+            System.out.println(String. format("channel = %x", channel) + " "
+            + String. format("slot = %x", slot) + " "
+            + String. format("crate = %x", crate) + " "
+            + String. format("charge = %x", charge) + " "
+            + String. format("time = %x", time) + " "
+            + String. format("frame = %x", frame_count)
+            );
+
+            System.out.println("channel = " + channel
+            + " slot = " + slot
+            + " crate = " + crate
+            + " charge = " + charge
+            + " time = " + time
+            + " frame = " + frame_count
+            );
             try {
                 Thread.sleep(5_000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-//            dfh.evtWrite(channel, slot, crate, charge, (int)time, frame_count);
+            dfh.evtWrite(channel, slot, crate, charge, time, frame_count);
         }
         dfh.close();
     }
