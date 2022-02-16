@@ -118,10 +118,14 @@ public class DataFile2HipoBank {
         while (dfh.dataBuffer.position() < dfh.dataBuffer.limit()) {
             int c = dfh.dataBuffer.getInt();
             int channel = c & 0xf;
-            int slot = (c & 0x1f0) >> 4;
+            int slot = (c & 0x1f0) >>> 4;
+            int crate = (c & 0xFE00) >>> 9;
+            int charge = (c & 0xFFFF0000) >>> 16;
             System.out.println(String. format("first integer = %x", c));
             System.out.println(String. format("channel = %x", channel));
             System.out.println(String. format("slot = %x", slot));
+            System.out.println(String. format("crate = %x", crate));
+            System.out.println(String. format("charge = %x", charge));
 //            int cbi = Integer.reverseBytes(c);
 
 //            long d = dfh.dataBuffer.getLong();
