@@ -117,11 +117,14 @@ public class DataFile2HipoBank {
 
         while (dfh.dataBuffer.position() < dfh.dataBuffer.limit()) {
             int c = dfh.dataBuffer.getInt();
+            System.out.println(String. format("first integer = %x", c));
 //            int cbi = Integer.reverseBytes(c);
 
 //            long d = dfh.dataBuffer.getLong();
             int d = dfh.dataBuffer.getInt();
-//            int dbi = Integer.reverseBytes(d);
+            System.out.println(String. format("second integer = %x", d));
+
+            //            int dbi = Integer.reverseBytes(d);
 
 //            int channel = bits(c,28,4);
 //            int slot = bits(c,23,5);
@@ -144,7 +147,7 @@ public class DataFile2HipoBank {
                     + " frame = " + frame_count
             );
             try {
-                Thread.sleep(1_000);
+                Thread.sleep(5_000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
