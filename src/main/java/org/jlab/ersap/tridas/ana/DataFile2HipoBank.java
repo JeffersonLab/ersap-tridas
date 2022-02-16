@@ -118,8 +118,10 @@ public class DataFile2HipoBank {
         while (dfh.dataBuffer.position() < dfh.dataBuffer.limit()) {
             int c = dfh.dataBuffer.getInt();
             int channel = c & 0xf;
+            int slot = (c & 0x1f0) >> 4;
             System.out.println(String. format("first integer = %x", c));
             System.out.println(String. format("channel = %x", channel));
+            System.out.println(String. format("slot = %x", slot));
 //            int cbi = Integer.reverseBytes(c);
 
 //            long d = dfh.dataBuffer.getLong();
