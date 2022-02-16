@@ -120,9 +120,9 @@ public class DataFile2HipoBank {
             long d = dfh.dataBuffer.getLong();
 
             int channel = bits(c,0,4);
-            int slot = bits(c,4,5);
-            int crate = bits(c,9,7);
-            int charge = bits(c,16,16);
+            int slot = bits(c,3,5);
+            int crate = bits(c,8,7);
+            int charge = bits(c,15,16);
             long time = bits(d, 0,16);
             long frame_count = bits(d,16,48);
             System.out.println("DDD " +
